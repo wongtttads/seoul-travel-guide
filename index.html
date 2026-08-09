@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10253f">
+<title>韩国首尔旅行 · 携带清单</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  :root{--navy:#10253f;--navy-2:#183657;--blue:#1475e1;--blue-soft:#eaf4ff;--red:#e14a47;--red-soft:#fff0ed;--amber:#a86508;--amber-soft:#fff5dd;--green:#287a5b;--green-soft:#eaf7ef;--paper:#f7f4ee;--card:#fffdf9;--line:#d9d4cb;--muted:#667085;--shadow:0 12px 32px rgba(16,37,63,.09);--safe-bottom:max(18px,env(safe-area-inset-bottom));}
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:#142033;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:40px}
+  .shell{width:min(100%,760px);margin:auto;padding:0 16px}
+  .hero{background:var(--navy);color:#fff;padding:28px 16px 22px}
+  .hero small{display:block;font-size:12px;letter-spacing:.1em;color:#f4a33d;font-weight:700;margin-bottom:6px}
+  .hero h1{font-size:26px;line-height:1.2;font-weight:800}
+  .hero p{margin-top:8px;font-size:13px;color:#cfe0f2;max-width:560px}
+  .progress{display:flex;align-items:center;gap:10px;margin-top:16px}
+  .bar{flex:1;height:10px;background:rgba(255,255,255,.18);border-radius:99px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0%;background:#5fd08a;transition:width .3s}
+  .progress b{font-size:12px;min-width:54px;text-align:right}
+  .notice{margin:14px 0;padding:13px 14px;background:var(--amber-soft);border:1px solid #ecd6a8;border-radius:14px;font-size:13px;color:#6b4f1d}
+  .notice strong{color:#a86508;display:block;font-size:13px;margin-bottom:4px}
+  .section{margin:24px 0}
+  .h2{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;color:var(--navy);margin-bottom:10px}
+  .h2 .n{background:var(--blue);color:#fff;min-width:24px;height:24px;border-radius:8px;display:grid;place-items:center;font-size:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 18px rgba(16,37,63,.05);overflow:hidden}
+  .row{display:flex;align-items:flex-start;gap:12px;padding:13px 15px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .15s}
+  .row:last-child{border-bottom:0}
+  .row:hover{background:#f9fbfd}
+  .row input{position:absolute;opacity:0;width:0;height:0}
+  .ck{flex:0 0 24px;width:24px;height:24px;border:2px solid #b2bcc8;border-radius:7px;margin-top:1px;position:relative}
+  .row input:checked+.ck{background:var(--green);border-color:var(--green)}
+  .row input:checked+.ck:after{content:"✓";display:grid;place-items:center;color:#fff;font-weight:900;font-size:14px;text-align:center;line-height:20px}
+  .txt{flex:1}
+  .txt b{display:block;font-size:14px;color:#1c2a3c}
+  .txt span{font-size:12px;color:var(--muted)}
+  .row input:checked~.txt b{text-decoration:line-through;color:#8a96a3}
+  .tag{flex:0 0 auto;align-self:center;font-size:10px;font-weight:800;padding:3px 8px;border-radius:99px;white-space:nowrap}
+  .t-have{color:var(--green);background:var(--green-soft)}
+  .t-warn{color:var(--red);background:var(--red-soft)}
+  .t-do{color:var(--amber);background:var(--amber-soft)}
+  .t-pass{color:var(--blue);background:var(--blue-soft)}
+  .warn-box{margin:10px 0;padding:13px 14px;border-radius:14px;font-size:13px}
+  .warn-box.red{background:var(--red-soft);border:1px solid #f0c4bf}
+  .warn-box.red b{color:#a73734;display:block;margin-bottom:4px}
+  .warn-box.green{background:var(--green-soft);border:1px solid #c6e5d2}
+  .warn-box.green b{color:#1f6b4e;display:block;margin-bottom:4px}
+  .warn-box p{color:#5a4a45;margin:2px 0}
+  .warn-box.red p{color:#6b3f3c}
+  .warn-box.green p{color:#3d5a4b}
+  .footer{color:var(--muted);font-size:11px;text-align:center;margin-top:30px;padding:0 16px}
+  .tabs{display:flex;gap:6px;padding:14px 16px 0;position:sticky;top:0;z-index:50;background:var(--paper);backdrop-filter:blur(8px)}
+  .tab{flex:1;text-align:center;padding:12px 8px;border-radius:13px 13px 0 0;font-size:13px;font-weight:800;color:var(--muted);cursor:pointer;border:1px solid var(--line);border-bottom:0;background:#efe9df;transition:.15s}
+  .tab.active{background:var(--card);color:var(--navy);box-shadow:0 -4px 14px rgba(16,37,63,.05)}
+  .tab .em{display:block;font-size:10px;font-weight:600}
+  .pane{display:none}
+  .pane.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .cat{font-size:14px;font-weight:800;color:var(--navy);margin:22px 10px 8px;display:flex;align-items:center;gap:8px}
+  .cat .dot{width:18px;height:18px;border-radius:6px;display:grid;place-items:center;font-size:11px;color:#fff}
+  .map-block{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 18px rgba(16,37,63,.05);padding:0 0 6px;margin:18px 0;overflow:hidden}
+  .map-block .cat{padding:12px 14px 8px;margin:0}
+  .mini-map{height:210px;background:#e6ebef;width:100%;z-index:1}
+  .mini-map .offline{height:100%;display:grid;place-items:center;color:var(--muted);font-size:12px;text-align:center;padding:16px}
+  .map-list{padding:4px 12px 12px}
+  .map-list{display:grid;grid-template-columns:1fr;gap:2px}
+  @media(min-width:600px){.map-list{grid-template-columns:1fr 1fr;gap:4px}}
+  .map-list .mp-item{margin:0;border:1px solid transparent;border-radius:12px}
+  .mp-item{display:flex;align-items:flex-start;gap:10px;padding:9px 6px;border-top:1px dashed var(--line)}
+  .mp-num{flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:900;font-size:12px;display:grid;place-items:center}
+  .mp-body{flex:1;min-width:0}
+  .mp-body b{font-size:14px;color:#1c2a3c}
+  .mp-body .ko{font-size:12px;color:var(--blue);margin:1px 0}
+  .mp-body .addr{font-size:11px;color:var(--muted);word-break:keep-all}
+  .mp-links{display:flex;gap:6px;margin-top:6px}
+  .mp-links a{font-size:11px;font-weight:800;padding:5px 10px;border-radius:9px;text-decoration:none}
+  .mp-links .naver{background:#1ec800;color:#fff}
+  .mp-links .apple{background:var(--navy);color:#fff}
+  .mp-links .copy{background:#fff;color:var(--blue);border:1px solid var(--blue)}
+  .official-links{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 14px}
+  .official-links a{background:#fff;color:var(--blue);border:1px solid #b8d5f5;border-radius:10px;padding:7px 10px;text-decoration:none;font-size:11px;font-weight:800}
+  .mp-item{display:flex;align-items:flex-start;gap:10px;padding:10px 6px;border-top:1px dashed var(--line)}
+  .mp-item.row{cursor:default}
+  .mp-item.row{position:relative}
+  .mp-item.row:hover{background:#f9fbfd}
+  .mp-item.row .ck{flex:0 0 22px;width:22px;height:22px}
+  .mp-body{flex:1;min-width:0}
+  .mp-body b{font-size:14px;color:#1c2a3c;display:block}
+  .mp-seq{font-size:11px;font-weight:800;color:var(--navy);margin-right:4px}
+  .mp-star{color:#f5a623;font-size:13px;letter-spacing:1px;font-weight:800}
+  .mp-desc{font-size:12px;color:#465467;margin:3px 0}
+  .mp-note{font-size:11px;color:var(--red);font-weight:700;margin:3px 0;padding:4px 8px;background:var(--red-soft);border-radius:8px}
+  .mp-note.ok{color:var(--green);background:var(--green-soft)}
+  .mp-body .ko{font-size:12px;color:var(--blue);margin:1px 0}
+  .mp-body .addr{font-size:11px;color:var(--muted);word-break:keep-all}
+  .mp-metro{font-size:11px;color:var(--green);font-weight:800;margin-top:2px}
+  .mp-source{font-size:10px;color:var(--muted);margin-top:5px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .mp-source a{color:var(--blue);font-weight:800;text-decoration:none}
+  .verify-badge{font-size:9px;font-weight:800;padding:2px 6px;border-radius:99px;background:var(--green-soft);color:var(--green)}
+  .verify-badge.recheck{background:var(--amber-soft);color:var(--amber)}
+  .m-metro{font-size:11px;color:var(--green);font-weight:800;margin:3px 0}
+  .mp-act{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:52px}
+  .mp-copy{border:0;background:var(--blue-soft);color:var(--blue);width:34px;height:34px;border-radius:10px;font-size:16px;cursor:pointer;display:grid;place-items:center;box-shadow:0 1px 4px rgba(16,37,63,.08);transition:.15s}
+  .mp-copy:hover{background:var(--blue);color:#fff}
+  .mp-copy.now,.mp-copy:active{background:var(--green);color:#fff}
+  .mp-dirs{display:flex;gap:5px}
+  .mp-dirs a{font-size:10px;font-weight:800;padding:4px 9px;border-radius:8px;text-decoration:none;color:#fff;line-height:1}
+  .mp-dirs .naver{background:var(--green)}
+  .mp-dirs .apple{background:var(--navy)}
+  .leaflet-div-icon{background:transparent;border:0}
+  .m-pin{width:24px;height:30px;background:var(--navy);color:#fff;border:2px solid #fff;border-radius:12px 12px 12px 3px;transform:rotate(-45deg);display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+  .m-pin b{transform:rotate(45deg);font-size:11px}
+  .leaflet-marker-icon .m-label{position:absolute;top:-4px;left:50%;transform:translateX(-50%) translateY(-100%);white-space:nowrap;background:rgba(16,37,63,.88);color:#fff;font-size:10px;font-weight:800;padding:3px 7px;border-radius:8px;pointer-events:none;box-shadow:0 1px 4px rgba(0,0,0,.2);z-index:5}
+  .leaflet-marker-icon:hover .m-label{background:var(--blue)}
+  .m-hotel-pin{width:22px;height:28px;background:#e14a47;color:#fff;border:2px solid #fff;border-radius:7px 7px 7px 2px;transform:rotate(-45deg);display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.35);position:relative}
+  .m-hotel-pin b{transform:rotate(45deg);font-size:12px}
+  .leaflet-marker-icon .m-hotel-label{position:absolute;top:0;left:50%;transform:translateX(-50%) translateY(-100%);white-space:nowrap;background:#e14a47;color:#fff;font-size:10px;font-weight:800;padding:3px 7px;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.25);z-index:6}
+  .m-hotel-pin.candidate{background:var(--amber)}
+  .leaflet-marker-icon .m-hotel-label.candidate{background:var(--amber)}
+  .filter-row{display:flex;gap:7px;overflow-x:auto;padding:10px 12px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .filter-row::-webkit-scrollbar{display:none}
+  .filter-btn{border:1px solid var(--line);background:#fff;color:var(--muted);font-size:11px;font-weight:800;border-radius:99px;padding:8px 11px;white-space:nowrap;cursor:pointer}
+  .filter-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+  #map-overview{height:330px}
+  .m-pop{padding:2px 6px}
+  .m-pop b{display:block;font-size:14px;color:#1c2a3c}
+  .m-pop .ko{color:var(--blue);font-size:12px}
+  .m-pop small{display:block;color:var(--muted);font-size:11px;margin:2px 0 6px}
+  .m-pop a{display:inline-block;text-decoration:none;font-weight:800;font-size:12px;padding:4px 10px;border-radius:8px;margin-right:6px}
+  .m-rec{font-size:11px;color:#f5a623;font-weight:800;margin:3px 0}
+  .m-desc{font-size:12px;color:#465467;margin:4px 0}
+  .m-note{font-size:11px;color:var(--red);font-weight:700;padding:5px 8px;background:var(--red-soft);border-radius:8px;margin:4px 0}
+  /* 每日行程 */
+  .it-day{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 18px rgba(16,37,63,.05);margin:18px 0;overflow:hidden}
+  .it-head{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff}
+  .it-date{background:#fff;color:var(--navy);border-radius:12px;min-width:52px;height:52px;display:grid;place-items:center;text-align:center;font-weight:900}
+  .it-date b{display:block;font-size:22px;line-height:1}
+  .it-date small{font-size:10px;color:var(--navy);opacity:.7}
+  .it-title{flex:1}
+  .it-title h3{margin:0;font-size:16px}
+  .it-title span{font-size:11px;color:#cfe0f2;opacity:.9}
+  .it-body{padding:6px 16px 12px}
+  .it-slot{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
+  .it-slot:last-child{border:0}
+  .it-time{flex:0 0 64px;font-size:11px;font-weight:800;color:var(--blue);padding-top:2px}
+  .it-slot-txt{flex:1}
+  .it-slot-txt b{font-size:14px;color:#1c2a3c;display:block}
+  .it-slot-txt span{font-size:11px;color:var(--muted)}
+  .it-slot-txt .it-note{font-size:11px;color:var(--red);font-weight:700;display:block;margin-top:2px}
+  .it-flag{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:99px;margin-left:6px}
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="shell">
+      <small>SEOUL · 2026.08.13 — 08.18</small>
+      <h1>韩国首尔旅行<br>携带清单 &amp; 注意事项</h1>
+      <p>两人 · 六天五晚 · 共用 1 个 24 寸托运行李箱。公开手机版更新：2026-08-09。点击卡片可勾掉已准备好的项。</p>
+      <div class="progress"><div class="bar"><i id="fill"></i></div><b id="pct">0%</b></div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="pack"><span class="em">🧳</span>携带清单</div>
+    <div class="tab" data-tab="sights"><span class="em">📍</span>景点清单</div>
+    <div class="tab" data-tab="itinerary"><span class="em">🗓️</span>每日行程</div>
+  </div>
+
+  <div class="shell pane active" data-pane="pack">
+    <div class="notice"><strong>⚠️ 出发前必做 3 件事</strong>① 确认最终酒店订单，并保存酒店韩文地址和机场路线 ② 8/11–8/12 在韩国政府官网免费填 <b>e-Arrival Card</b>；本次从广东出发，另须填 <b>Q-CODE</b> ③ 确认境外刷卡/ATM功能及去回程托运行李额度。</div>
+    <div class="official-links"><a href="https://www.e-arrivalcard.go.kr/portal/main/index.do?locale=E" target="_blank" rel="noopener">官方 e-Arrival Card</a><a href="https://qcode.kdca.go.kr/qco/index.do?lang=en" target="_blank" rel="noopener">官方 Q-CODE</a><a href="https://www.arex.or.kr/station/trainTime.do?menuNo=MN201503300000000025&amp;stnCd=030&amp;tab=4" target="_blank" rel="noopener">弘大 AREX 时刻</a><a href="https://english.seoul.go.kr/policy/transportation/climate-card/" target="_blank" rel="noopener">气候同行卡官方说明</a></div>
+
+    <div class="warn-box red" style="margin-top:12px"><b>⚠️ 出发前补充提醒（易漏项）</b>
+      <p>🛡️ <b>旅行保险已买</b>：出发前下载保单和紧急救援电话，确认实际承保日期完整覆盖<b>8/13–8/18</b>、医疗、航班延误和行李。</p>
+      <p>🏨 <b>酒店状态</b>：已订的是 <b>Acube Hotel Dongdaemun</b>（8/13–18五晚）；<b>弘大波波酒店只是候选，尚未订</b>。若要换酒店，先确认波波下单成功，再于 Acube 免费取消截止前处理。</p>
+      <p>📱 <b>国内手机号漫游</b>：保银行验证码能收，出发前开<b>国际漫游</b>或留意。</p>
+      <p>🌪️ <b>台风/航班延误预案</b>：8月是台风季，关注航班；若延误预留缓冲，备好保险理赔。</p>
+      <p>🗣️ <b>韩语沟通</b>：备翻译App(如Papago)或常用短语；首尔英语普及一般。</p>
+      <p>🚨 <b>紧急号码</b>：报警<b>112</b>、急救/消防<b>119</b>、旅游咨询<b>1330</b>；中国驻韩使馆领保工作时间<b>02-755-0572</b>，外交部24小时热线<b>+86-10-12308</b>。</p>
+    </div>
+
+    <div class="section">
+      <div class="h2"><span class="n">🏨</span>酒店订单与候选（状态已审计）</div>
+      <div class="card">
+        <div class="mp-item"><div class="mp-num">H</div><div class="mp-body"><b>Acube Hotel Dongdaemun · 에이큐브호텔 <span class="tag t-have">已订</span></b><div class="ko">亚库比酒店（东大门）</div><div class="addr">서울특별시 중구 동호로35길 5 (을지로5가) · 5 Dongho-ro 35-gil, Jung-gu, Seoul 04547</div><div class="mp-metro">🚇 乙支路四街站②⑤约450米，拖24寸箱按7–10分钟</div><div class="mp-desc">凭证已核：8/13周四入住、8/18周二退房，1间住5晚，1张1.31米双人床，无早餐。去仁川需在弘大入口或首尔站换乘普通AREX，不是机场线直达酒店。</div><div class="mp-note">酒店电话+82-2-2264-2888；订单编号等隐私信息仅保存在本地完整版。</div><div class="mp-links"><a class="naver" href="https://map.naver.com/p/search/%EC%97%90%EC%9D%B4%ED%81%90%EB%B8%8C%ED%98%B8%ED%85%94%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%EB%8F%99%ED%98%B8%EB%A1%9C35%EA%B8%B8%205" target="_blank" rel="noopener">Naver 导航</a><a class="apple" href="https://maps.apple.com/?q=Acube%20Hotel%20Dongdaemun&ll=37.5662231,127.0016072" target="_blank" rel="noopener">Apple 地图</a><a class="copy" href="https://www.acubehotel.com/mobile/kor/index.do" target="_blank" rel="noopener">酒店官网</a></div></div></div>
+        <div class="mp-item"><div class="mp-num" style="background:var(--amber)">B</div><div class="mp-body"><b>Bobo Hotel Hongdae · 보보호텔 <span class="tag t-do">候选/未订</span></b><div class="ko">弘大波波酒店</div><div class="addr">서울 마포구 양화로 94 · 94 Yanghwa-ro, Mapo-gu, Seoul 04043</div><div class="mp-metro">🚇 合井站约531米；到弘大入口站入口约8–12分钟，拖箱走到AREX站台按15–20分钟</div><div class="mp-desc">优势是普通AREX可从弘大入口站不换乘到仁川T1/T2，且弘大、合井夜间活动方便。8/7携程查看：标准双人房约17㎡、1.31米床、无早餐，约¥727/晚、五晚约¥3,635；携程4.4/5（457条点评），位置4.5、卫生4.3，页面显示余量较少。</div><div class="mp-note">取舍：装修和灯光偏旧、带汽车旅馆感，近期少数点评提到烟味/异味或清洁波动；床宽与Acube相同。携程当时显示韩国时间8/12 23:59前免费取消，但<b>尚未下单，价格和政策不锁定</b>。</div><div class="mp-links"><a class="naver" href="https://map.naver.com/p/search/%EB%B3%B4%EB%B3%B4%ED%98%B8%ED%85%94%20%EC%84%9C%EC%9A%B8%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%EC%96%91%ED%99%94%EB%A1%9C%2094" target="_blank" rel="noopener">Naver 导航</a><a class="apple" href="https://maps.apple.com/?q=Bobo%20Hotel%20Hongdae&ll=37.5523346,126.9182698" target="_blank" rel="noopener">Apple 地图</a><a class="copy" href="https://hotels.ctrip.com/hotels/detail/?cityEnName=Seoul&amp;cityId=274&amp;hotelId=1360876&amp;checkIn=2026-08-13&amp;checkOut=2026-08-18&amp;adult=2&amp;children=0&amp;crn=1&amp;curr=CNY" target="_blank" rel="noopener">携程实时房价</a></div></div></div>
+      </div>
+      <div class="warn-box green"><b>机场返程结论</b><p>8/18 航班12:45起飞：若保留Acube，建议<b>08:00前后</b>离店，乙支路四街②线到弘大入口换普通AREX；若改订Bobo，也按<b>07:50–08:00</b>离店，拖箱步行到弘大入口AREX站台，目标09:20–09:40到仁川T1。两种都以电子客票航站楼及当天AREX时刻为准；气候同行卡只能乘普通AREX，不能坐橙色直达列车。</p></div>
+    </div>
+
+    <div class="section">
+      <div class="h2"><span class="n">✈️</span>已订航班与航站楼</div>
+      <div class="card">
+        <div class="mp-item"><div class="mp-num">去</div><div class="mp-body"><b>8/13（周四）德威 TW644</b><div class="mp-desc">香港13:15 → 仁川18:05。德威官方当前时刻表一致；香港机场当前列为<b>T1、D区</b>办理，仁川抵达为T1。</div><div class="mp-note">带24寸箱：必须在订单中确认去程免费托运行李额度；不能只凭“廉航机票”推定含15/20kg。</div></div></div>
+        <div class="mp-item"><div class="mp-num">回</div><div class="mp-body"><b>8/18（周二）香港快运 UO619</b><div class="mp-desc">仁川12:45 → 香港15:35，已购1件20kg托运行李。仁川机场官方当前把香港快运列在<b>T1</b>；香港抵达仍到<b>香港T1</b>。</div><div class="mp-note">仁川香港快运柜台在起飞前180分钟开放、60分钟前截止；航站楼和时刻仍以8/17–18电子客票/机场实时查询为准。香港快运2026年6月迁往香港T2的是“从香港出发”的值机与托运，不影响这趟抵港取行李。</div></div></div>
+      </div>
+      <div class="official-links"><a href="https://www.twayair.com/app/serviceInfo/flightSchedule?showWholeSchedule=Y" target="_blank" rel="noopener">德威官方时刻表</a><a href="https://www.hongkongairport.com/en/flights/airlines-information/airlines.page" target="_blank" rel="noopener">香港机场航司柜台</a><a href="https://www.hkexpress.com/zh-CN/Plan/Travel/HKIA-T2" target="_blank" rel="noopener">香港快运T2说明</a></div>
+    </div>
+
+    <!-- 一、证件 -->
+    <div class="section">
+      <div class="h2"><span class="n">1</span>证件与文件</div>
+      <div class="card" data-group="证件">
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>护照（有效且覆盖全程）</b><span>出发前再次确认</span></div><span class="tag t-have">已确认</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>韩国签证 + Visa Grant Notice 纸质版</b><span>打印一份随身带，勿托运</span></div><span class="tag t-have">已确认</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>往返机票行程单（打印一份随包）</b><span>去程8/13德威TW644(13:15→18:05) · 回程8/18香港快运UO619(12:45→15:35) 已订</span></div><span class="tag t-have">已订</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>酒店订单（Acube Hotel Dongdaemun）</b><span>8/13–18五晚已订 · 地址：서울특별시 중구 동호로35길 5 · 凭证/订单号存手机</span></div><span class="tag t-have">已订</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>身份证</b><span>回程过关/高铁用，拍照备份</span></div><span class="tag t-do">备着</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>E-Arrival Card + Q-CODE 二维码</b><span>e-Arrival电子或纸质二选一，本次建议电子；因从广东出发，2026年第三季度须另交Q-CODE。两人各存截图和编号</span></div><span class="tag t-pass">8/11-12填</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>护照/签证/身份证 电子备份</b><span>拍照存手机+iCloud</span></div></label>
+      </div>
+      <div class="warn-box red"><b>⚠️ 关键</b><p>所有纸质件（签证/机票/酒店）随身带，不放 24 寸托运。香港为真实过境（经香港转第三国），护照+签证+往返行程单+酒店订单需随身备好。</p></div>
+    </div>
+
+    <!-- 二、钱与支付 -->
+    <div class="section">
+      <div class="h2"><span class="n">2</span>钱与支付</div>
+      <div class="card" data-group="钱">
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>韩元现金约¥550（120,000韩元）</b><span>已预约：6×1万+12×5千；取钞后两人分开放</span></div><span class="tag t-do">待领取</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>小额零钱（5千/1万韩元）</b><span>地铁充值/小摊/传统市场</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>境外消费主卡</b><span>使用免境外交易手续费的Visa/Mastercard；刷卡机一律选KRW，拒绝DCC港币/人民币换算</span></div><span class="tag t-have">主用</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>境外消费备用卡</b><span>确认境外交易和ATM取现开关；支付宝/微信仅在页面明确立减时优先</span></div><span class="tag t-warn">待确认开关</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>T-money 交通卡（LG U+塑料片自带）</b><span>SIM卡板抠出的塑料片即是T-money；普通实体卡充值按韩元现金准备，可在机场铁路站充值机或便利店充值；可直接刷普通AREX，橙色直达列车须另买指定席票</span></div><span class="tag t-pass">落地充值</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>气候同行卡（Climate Card）5日券</b><span>约¥69（15,000韩元）+实体卡约¥14（3,000韩元）≈¥83/人 · iPhone需实体卡 · 8/14当天充值即启用，覆盖至8/18 · 返程从首尔乘普通AREX可在仁川T1/T2出站</span></div><span class="tag t-do">8/14买</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>回程行李托运</b><span>香港快运UO619已购1人20kg · 共1个24寸箱 · 确认订单/打印</span></div><span class="tag t-have">已购</span></label>
+      </div>
+    </div>
+
+    <!-- 三、电子设备 -->
+    <div class="section">
+      <div class="h2"><span class="n">3</span>电子设备 <span style="font-size:12px;color:var(--muted);font-weight:400">（有坑，必读）</span></div>
+      <div class="card" data-group="电子">
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>手机 + 充电器</b></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>转换插头（欧标两圆脚 C/F）</b><span>韩国 220V、60Hz；UA19 推出欧标两圆脚，转换头不改变电压</span></div><span class="tag t-warn">必带</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>多孔延长线 / USB 集线器</b><span>两人同时充多个设备</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>充电宝（香港出发每人最多2个）</b><span>必随身、勿托运、不要放头顶行李架；端口防短路。&lt;100Wh通常可带，100–160Wh需航司批准</span></div><span class="tag t-warn">随身</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>韩国 SIM 卡（LG U+ 二合一）</b><span>方案已定：6天4G、仁川T1航站楼取卡、3天以上套餐附T-money；当前聊天中未见明确付款凭证，出发前确认携程订单状态</span></div><span class="tag t-do">待确认订单</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>备用充电线×2</b><span>两人分开放防丢</span></div></label>
+      </div>
+      <div class="warn-box red"><b>⚠️ 充电宝规定</b><p>香港民航处自2026年3月起规定：从香港机场出发每名旅客最多2个充电宝，只能随身携带；香港快运还要求放座位前方小包/指定位置，不放头顶行李架。飞行中不得使用充电宝给设备充电，也不得给充电宝充电。100Wh以下通常可带；100–160Wh先向航司申请；超160Wh禁带。</p></div>
+    </div>
+
+    <!-- 四、药品 -->
+    <div class="section">
+      <div class="h2"><span class="n">4</span>药品</div>
+      <div class="h2" style="font-size:14px;color:var(--green);margin:0 0 6px">✅ 普通自用药：原包装、小量携带</div>
+      <div class="card" data-group="药品">
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>退烧/止痛药（不指定）</b><span>如必理痛Panadol、普拿疼（成分单一、国际认可款）</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>肠胃药（止泻/助消化）</b><span>如喇叭正露丸、止泻药</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>过敏药（抗组胺）</b><span>如氯雷他定、开瑞坦</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>晕车药（晕浪丸）</b><span>飞行/乘车用</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>外用药：OK绷/创可贴/酒精/碘伏棉签</b></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>布洛芬（退烧/止痛）</b><span>布洛芬非管制可带，备着</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>鼻喷雾（过敏性鼻炎/空调房）</b><span>室内外温差大，备一瓶</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>防中暑/补水（8月高温）</b><span>优先口服补液盐；不要用成分复杂或含酒精制剂替代补水</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>处方药（若长期用药）</b><span>保留原包装和成分表，带英文处方/医师证明；若含麻醉或精神管制成分，须出发前向韩国MFDS申请许可</span></div><span class="tag t-do">查成分</span></label>
+      </div>
+
+      <div class="h2" style="font-size:14px;color:var(--red);margin:16px 0 6px">⚠️ 不能凭品牌判断，必须看成分</div>
+      <div class="warn-box red"><b>① 麻醉药品 / 精神药品</b><p>部分强效镇静安眠药、ADHD药、阿片类止痛药或含管制成分的止咳药，入境韩国前即使有处方也可能需要MFDS许可。长期用药先把英文成分名发给MFDS确认。</p></div>
+      <div class="warn-box red"><b>② CBD / 大麻相关产品</b><p>CBD油、软糖、电子烟油、护肤品等不要携带；韩国对大麻相关产品管制严格。</p></div>
+      <div class="warn-box red"><b>③ 受保护动物成分或来源不明的散装中药</b><p>虎骨、犀牛角、麝香、熊胆等受保护动物成分不要携带；散装药材缺少成分标签，也不建议带。</p></div>
+
+      <div class="warn-box green"><b>💡 带药建议</b><p>① 普通退烧、止痛、肠胃和过敏药只带行程所需的小量。② 原厂包装别拆，保留英文成分表。③ 不对EVE、感冒药等作“整品牌禁带”判断；复方药逐项核对成分。④ 有疑问先联系韩国MFDS或入境海关，不要依赖“申报就一定不处罚”的说法。</p></div>
+    </div>
+
+    <!-- 五、衣物 -->
+    <div class="section">
+      <div class="h2"><span class="n">5</span>衣物（8月夏季·首尔）</div>
+      <div class="card" data-group="衣物">
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>轻薄透气衣物（速干T恤×5–6）</b><span>首尔8月高温多雨</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>防晒衣 + 帽子 + 墨镜</b></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>折叠伞 / 轻便雨衣</b><span>夏季午后阵雨，必带</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>舒适运动鞋 / 徒步鞋</b><span>首尔多坡+步行多</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>轻薄防水外套</b><span>空调房/晚间用</span></div></label>
+      </div>
+    </div>
+
+    <!-- 六、其他 -->
+    <div class="section">
+      <div class="h2"><span class="n">6</span>其他备品</div>
+      <div class="card" data-group="其他">
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>行李秤</b><span>防超重（回程香港快运/德威限重严）</span></div><span class="tag t-warn">建议</span></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>小笔记本 + 笔</b><span>填入境卡/记账</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>行李牌</b></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>折叠购物袋</b><span>首尔购物/超市</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>垃圾袋</b><span>随身带几个，装垃圾/湿物/脏衣物分隔，韩国街头垃圾桶少</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>口罩（视需要）</b></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>拖鞋</b><span>酒店/汗蒸幕用，也可落地便利店买</span></div></label>
+        <label class="row"><input type="checkbox"><span class="ck"></span><div class="txt"><b>旅行保险（出境）</b><span>确认保单日期完整覆盖8/13–18，并在手机保存保单和救援电话</span></div><span class="tag t-have">已买</span></label>
+      </div>
+      <div class="warn-box green"><b>🍺 入境韩国免税与检疫</b><p>一般物品每人不超过800美元；成人酒类合计不超过<b>2公升且总价不超过400美元</b>，香烟200支，香水<b>100毫升</b>。生肉、鲜奶、蔬果等动植物产品受检疫限制；拿不准就申报。</p></div>
+    </div>
+
+    <div class="footer">🧳 携带清单 · 勾选进度保存在本页面（刷新仍在）<br>参考换算（2026-08-07）：1元人民币≈218韩元，1港元≈0.86元人民币；页面为便于预算的四舍五入金额，实际以刷卡、换汇或结算当日为准。</div>
+  </div><!-- /pane-pack -->
+
+  <div class="shell pane" data-pane="sights">
+    <div class="notice"><strong>📍 景点清单 + 地图</strong>所有可导航地点使用全页连续编号，地图标记与卡片完全一致。点击<b>复制</b>可复制韩文名+地址；“出发前复核”表示营业、演出或活动时间可能变化。</div>
+
+    <div class="strip" id="sight-strip"></div>
+
+    <div class="map-block"><div class="cat"><span class="dot" style="background:var(--navy)">总</span>首尔地点总览 <span style="font-size:11px;color:var(--muted);font-weight:400">33个实地点 · 可筛选</span></div><div class="filter-row" id="map-filters"><button class="filter-btn active" data-filter="all">全部</button><button class="filter-btn" data-filter="history">历史</button><button class="filter-btn" data-filter="film">韩剧</button><button class="filter-btn" data-filter="food">吃食</button><button class="filter-btn" data-filter="love">体验</button><button class="filter-btn" data-filter="festival">节日/追星</button><button class="filter-btn" data-filter="river">汉江</button></div><div class="mini-map" id="map-overview"></div></div>
+
+    <div class="map-block"><div class="cat"><span class="dot" style="background:var(--red)">1</span>人文 / 历史景点 <span style="font-size:11px;color:var(--muted);font-weight:400">核心，默认去</span></div><div class="mini-map" id="map-history"></div><div class="map-list" id="list-history"></div></div>
+    <div class="map-block"><div class="cat"><span class="dot" style="background:var(--blue)">2</span>影视剧取景地 <span style="font-size:11px;color:var(--muted);font-weight:400">多为顺路/可选</span></div><div class="mini-map" id="map-film"></div><div class="map-list" id="list-film"></div></div>
+    <div class="map-block"><div class="cat"><span class="dot" style="background:#f59e0b">3</span>吃食 <span style="font-size:11px;color:var(--muted);font-weight:400">物美价廉·剔牛肉</span></div><div class="mini-map" id="map-food"></div><div class="map-list" id="list-food"></div></div>
+    <div class="map-block"><div class="cat"><span class="dot" style="background:#8b5cf6">4</span>新奇/体验 <span style="font-size:11px;color:var(--muted);font-weight:400">演出·3D·猎奇·汗蒸</span></div><div class="mini-map" id="map-love"></div><div class="map-list" id="list-love"></div></div>
+    <div class="map-block"><div class="cat"><span class="dot" style="background:var(--green)">5</span>节日·追星体验 <span style="font-size:11px;color:var(--muted);font-weight:400">光复节限定 + KPOP朝圣</span></div><div class="mini-map" id="map-festival"></div><div class="map-list" id="list-festival"></div></div>
+    <div class="map-block"><div class="cat"><span class="dot" style="background:var(--amber)">6</span>汉江公园 <span style="font-size:11px;color:var(--muted);font-weight:400">水上项目已砍，公园可选</span></div><div class="mini-map" id="map-river"></div><div class="map-list" id="list-river"></div></div>
+
+    <div class="warn-box green"><b>💡 已砍项目的提醒</b><p>纛岛水上运动场、盘浦三光岛 Tubester、汝矣岛8/15无声DJ——这些汉江水上/夜晚项目你之前已决定<b>不参加</b>，公园仅保留「散步/看江景」。</p></div>
+    <div class="warn-box green"><b>💡 地图说明</b><p>底图 OpenStreetMap 需联网；离线时卡片仍可点跳转地图。地址与韩文名经核验，跳转会直接定位。</p></div>
+
+    <div class="footer">📍 景点清单 · 勾选进度独立保存 · 复制按钮可直接复制韩文地址</div>
+  </div><!-- /pane-sights -->
+
+  <div class="shell pane" data-pane="itinerary">
+    <div class="notice"><strong>🗓️ 每日行程</strong>按<b>日期限定优先 + 少走冤枉路</b>编排，14–17号四天。8/15优先普信阁和西大门光复节活动；景福宫移到8/17，避免同一天塞太满。活动时间临出发再看官方公告。</div>
+
+    <div class="it-day">
+      <div class="it-head"><div class="it-date"><b>14</b><small>周五</small></div><div class="it-title"><h3>新村 · 大学路 · 弘大 <span>轻松适应日</span></h3></div></div>
+      <div class="it-body">
+        <div class="it-slot"><div class="it-time">上午</div><div class="it-slot-txt"><b>李韩烈纪念馆<span class="it-flag" style="background:var(--green-soft);color:var(--green)">限工作日</span></b><span>新村站② · 8/14周五 · 纪念1987年六月民主抗争中的李韩烈</span><span class="it-note">⚠️ 开放和预约方式出发前确认</span></div></div>
+        <div class="it-slot"><div class="it-time">下午</div><div class="it-slot-txt"><b>学林茶房 <span class="it-flag" style="background:var(--blue-soft);color:var(--blue)">星你</span></b><span>惠化站④大学路 · 1956年老咖啡馆，坐下来喝杯咖啡休息</span><span class="it-note">营业约10:00-23:00，需消费入座</span></div></div>
+        <div class="it-slot"><div class="it-time">傍晚</div><div class="it-slot-txt"><b>弘大性爱美术馆 LOVE MUSEUM <span class="it-flag" style="background:#8b5cf6;color:#fff">19岁以上</span></b><span>弘大入口站② 9号出口 · 互动拍照 · 旧官方旅游资料票价约¥37（8,000韩元）</span><span class="it-note">营业、票价临出发再核；若保留Acube需乘②线往返，若改订Bobo则步行可达</span></div></div>
+      </div>
+    </div>
+
+    <div class="it-day">
+      <div class="it-head"><div class="it-date"><b>15</b><small>周六</small></div><div class="it-title"><h3>光复节 · 钟路 → 西大门 <span>日期限定核心日</span></h3></div></div>
+      <div class="it-body">
+        <div class="it-slot"><div class="it-time">待公布</div><div class="it-slot-txt"><b>普信阁光复节纪念鸣钟<span class="it-flag" style="background:var(--red-soft);color:var(--red)">日期限定</span></b><span>钟阁站① 4号出口 · 2026年8/15活动已确认，具体开始时间尚待公布</span><span class="it-note">⚠️ 当天不是游客公众敲钟体验；出发前按官方时刻调整前后行程</span></div></div>
+        <div class="it-slot"><div class="it-time">16:00</div><div class="it-slot-txt"><b>西大门独立庆典演出</b><span>独立门站③ · 西大门刑务所/独立公园一带，官方节目11:00及16:00</span></div></div>
+        <div class="it-slot"><div class="it-time">19:00</div><div class="it-slot-txt"><b>光复节纪念仪式与音乐会<span class="it-flag" style="background:var(--green-soft);color:var(--green)">免费活动</span></b><span>朴正炫 Lena Park、孙胜妍等 · 西大门独立公园</span><span class="it-note">热门免费活动建议提前到；天气和现场管制以当天公告为准</span></div></div>
+      </div>
+    </div>
+
+    <div class="it-day">
+      <div class="it-head"><div class="it-date"><b>16</b><small>周日</small></div><div class="it-title"><h3>龙山 · 明洞</h3></div></div>
+      <div class="it-body">
+        <div class="it-slot"><div class="it-time">上午</div><div class="it-slot-txt"><b>民主化运动纪念馆 M1</b><span>孝昌公园站⑥ · 免费直接参观</span></div></div>
+        <div class="it-slot"><div class="it-time">14:00</div><div class="it-slot-txt"><b>民主化 M2（预约）<span class="it-flag" style="background:var(--red-soft);color:var(--red)">须预约</span></b><span>旧南营洞审讯楼核心 · 优先约14:00，失败改现场/M1</span><span class="it-note">⚠️ 出发前官网预约</span></div></div>
+        <div class="it-slot"><div class="it-time">下午</div><div class="it-slot-txt"><b>明洞圣堂</b><span>明洞站④ · 哥特式教堂，明洞购物区旁</span><span class="it-note">弥撒时段不可参观，避开</span></div></div>
+      </div>
+    </div>
+
+    <div class="it-day">
+      <div class="it-head"><div class="it-date"><b>17</b><small>周一</small></div><div class="it-title"><h3>景福宫 · 光化门 · 德寿宫 <span>市中心慢游</span></h3></div></div>
+      <div class="it-body">
+        <div class="it-slot"><div class="it-time">09:00</div><div class="it-slot-txt"><b>景福宫<span class="it-flag" style="background:var(--red-soft);color:var(--red)">★5必去</span></b><span>景福宫站③ · 6–8月9:00–18:30 · 周二休 · 门票约¥14（3,000韩元）</span><span class="it-note">守门将换岗通常10:00和14:00；酷暑或恶劣天气可能停办，当天查公告</span></div></div>
+        <div class="it-slot"><div class="it-time">11:30</div><div class="it-slot-txt"><b>大韩民国历史博物馆<span class="it-flag" style="background:var(--green-soft);color:var(--green)">免费</span></b><span>光化门站⑤ · 周一正常开放10:00–18:00 · 韩国近现代史通史</span></div></div>
+        <div class="it-slot"><div class="it-time">下午</div><div class="it-slot-txt"><b>德寿宫石墙路<span class="it-flag" style="background:var(--blue-soft);color:var(--blue)">鬼怪</span></b><span>市厅站①② · 经典散步石墙路</span></div></div>
+        <div class="it-slot"><div class="it-time">顺带</div><div class="it-slot-txt"><b>首尔圣公会主教座堂</b><span>市厅站 · 紧邻德寿宫，砖红教堂打卡</span></div></div>
+      </div>
+    </div>
+
+    <div class="footer">🗓️ 每日行程 · 按地理位置就近编排 · 首尾8/13抵达、8/18返程未排景点</div>
+  </div><!-- /pane-itinerary -->
+
+<script>
+(function(){
+  var fill = document.getElementById('fill');
+  var pct = document.getElementById('pct');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var panes = Array.prototype.slice.call(document.querySelectorAll('.pane'));
+
+  function paneOf(el){ return el.closest('.pane'); }
+  function checksIn(pane){ return Array.prototype.slice.call(pane.querySelectorAll('.row input')); }
+
+  // 每个 pane 独立进度：key = pane 的 data-pane
+  var KEY = 'seoul_travel_v3_'; // 清单结构已调整，升级命名空间以避免旧勾选错位
+  function load(pane){
+    var list = [];
+    try{ var s = JSON.parse(localStorage.getItem(KEY+pane.dataset.pane)||'null');
+      if(Array.isArray(s)) list = s;
+    }catch(e){}
+    var checks = checksIn(pane);
+    // 通过给 row 标 data-i 定位
+    checks.forEach(function(c){ c.checked = false; });
+    list.forEach(function(i){ if(checks[i]) checks[i].checked = true; });
+  }
+  function save(pane){
+    var checks = checksIn(pane), arr=[];
+    checks.forEach(function(c,j){ if(c.checked) arr.push(j); });
+    try{ localStorage.setItem(KEY+pane.dataset.pane, JSON.stringify(arr)); }catch(e){}
+  }
+  function refresh(currentPane){
+    var checks = checksIn(currentPane);
+    var checked = checks.filter(function(i){return i.checked}).length;
+    var p = checks.length ? Math.round(checked/checks.length*100) : 0;
+    fill.style.width = p+'%';
+    pct.textContent = p+'%';
+  }
+  function switchTab(tab){
+    var name = tab.dataset.tab;
+    tabs.forEach(function(t){ t.classList.toggle('active', t===tab); });
+    panes.forEach(function(p){ p.classList.toggle('active', p.dataset.pane===name); });
+    var active = panes.filter(function(p){return p.dataset.pane===name})[0];
+    refresh(active);
+  }
+
+  // ====== 景点地图 (Leaflet) ======
+  // items 数组顺序 = 推荐度顺序（越靠前越推荐）。rec=星级, desc=简介, note=特殊时间/待确认
+  var SIGHTS = {
+    film: { color:'#1475e1', items:[
+      {n:1,zh:'德寿宫石墙路',ko:'덕수궁 돌담길',addr:'서울 중구 세종대로19길 24',lat:37.5666,lng:126.9749,rec:3,desc:'《鬼怪》拍摄地之一，也是首尔经典散步路线，石墙+枫林很美。',note:'全年开放，散步免费。'},
+      {n:2,zh:'学林茶房',ko:'학림다방',addr:'서울 종로구 대학로 119 2층',lat:37.5818,lng:127.0017,rec:3,desc:'《来自星星的你》都敏俊喝茶处，1956年开业老咖啡馆，适合坐下休息。',note:'营业约 10:00-23:00，需消费入座。'},
+      {n:3,zh:'西村怀旧街区（非1988取景地）',ko:'서촌',addr:'景福宫站以西的西村街区',lat:37.5835,lng:126.9723,rec:2,map:false,desc:'景福宫西侧的老街和小店，只有怀旧氛围；《请回答1988》核心胡同布景已拆除。',note:'⚠️ 此处<b>不是《请回答1988》拍摄地</b>，没有唯一准确打卡点；只在逛景福宫时顺路散步。'},
+      {n:4,zh:'建国大学一鉴湖',ko:'건국대학교 일감호',addr:'서울 광진구 능동로 120',lat:37.5419,lng:127.0752,rec:2,desc:'《鬼怪》湖边场景，校园人工湖，散步舒服。',note:'校园开放，环湖步道免费。'},
+      {n:5,zh:'云岘宫洋馆',ko:'운현궁 양관',addr:'서울 종로구 삼일대로 460 (양관) / 464 (운현궁 입구)',lat:37.5766,lng:126.9870,rec:2,desc:'《鬼怪》主角住宅外观，位于德成女子大学钟路校区一带。',note:'⚠️ 洋馆本身不开放；用“운현궁 양관”搜索，若校区入口限制就到云岘宫入口(三一大路464)止步，不为找机位进入限制区域。'},
+      {n:6,zh:'63 广场外观',ko:'63스퀘어',addr:'서울 영등포구 63로 50',lat:37.5198,lng:126.9402,rec:2,desc:'《我的女孩》《蓝色大海的传说》取景地标，汉江边，可顺路看外观。',note:'旧Aqua Planet 63水族馆和63 Art已于2024年关闭；2026年内部项目已更新，影视打卡按外观安排。'},
+      {n:7,zh:'龙踏站人行天桥',ko:'용답역 육교',addr:'서울 성동구 용답길 86',lat:37.5617,lng:127.0503,rec:1,desc:'《鬼怪》铁路天桥场景，近清溪川。',note:'天桥随时可走，周边铁路注意安全。'},
+      {n:8,zh:'《恶之花》旧工坊外景',ko:'팔판길 13',addr:'서울 종로구 팔판길 13',lat:37.5825,lng:126.9808,rec:1,desc:'非官方取景资料指向此处；现址业态和外观已有变化，顺路三清洞时才看。',note:'⚠️ 当前地址可核，但影视关联缺少官方取景清单支持；只看街道外观，不保证能复刻剧中画面。'},
+      {n:9,zh:'梨大首尔医院',ko:'이대서울병원',addr:'서울 강서구 공항대로 260',lat:37.5572,lng:126.8360,rec:1,desc:'《机智的医生生活》“律帝医院”外景之一，真实运营中的医院。',note:'仅在外部或允许进入的公共区域快速拍照，不进入诊疗区、不影响患者。'}
+    ]},
+    history: { color:'#e14a47', items:[
+      {n:1,zh:'景福宫',ko:'경복궁',addr:'서울 종로구 사직로 161',lat:37.5796,lng:126.9770,rec:5,desc:'首尔第一古宫、朝鲜王朝正宫，首尔代表性历史景点。',note:'6–8月9:00–18:30（提前1小时停止入场）；<b>每周二休宫</b>；门票约¥14（3,000韩元）；守门将换岗通常10:00和14:00，酷暑或恶劣天气可暂停；穿韩服免费。'},
+      {n:2,zh:'北村文化中心（韩屋村起点）',ko:'북촌문화센터',addr:'서울 종로구 계동길 37',lat:37.5790460,lng:126.9863882,rec:4,desc:'适合作为北村韩屋村的明确导航起点，再按现场步行指引进入街区。',note:'红色管理区北村路11街游客仅可在<b>10:00–17:00</b>进入，违规可罚约¥460（100,000韩元）；周日为胡同休息日。安国站只有地铁3号线，民居区务必轻声。'},
+      {n:3,zh:'光化门广场',ko:'광화문광장',addr:'서울 종로구 세종대로 172',lat:37.5700,lng:126.9775,rec:3,desc:'首尔民族象征广场，正对景福宫光化门，世宗大王/李舜臣铜像，8/15光复节氛围浓。',note:'公共广场免费随时开放；地铁5号线光化门站，与景福宫、西大门刑务所顺路；8/15可能有纪念活动。'},
+      {n:4,zh:'民主化运动纪念馆',ko:'민주화운동기념관',addr:'서울 용산구 한강대로71길 37',lat:37.5409,lng:126.9716,rec:3,desc:'韩国民主化运动纪念场馆，M2旧南营洞审讯楼是核心，须预约。',note:'M1免费直接参观；M2须预约(优先14:00)，周一闭馆，出发前上官网确认时段。'},
+      {n:5,zh:'西大门刑务所历史馆',ko:'서대문형무소역사관',addr:'서울 서대문구 통일로 251',lat:37.5745,lng:126.9563,rec:4,desc:'保留牢房与刑场，串联独立运动与民主史；2026年光复节庆典就在此及独立公园举行。',note:'8/15–16官方庆典：参与活动10:00–18:00，演出11:00/16:00；8/15 19:00纪念仪式和音乐会。'},
+      {n:6,zh:'李韩烈纪念馆',ko:'이한열기념관',addr:'서울 마포구 신촌로12나길 26',lat:37.5551,lng:126.9339,rec:3,desc:'纪念1987年六月民主抗争中的学生李韩烈。',note:'安排8/14周五；开放及预约方式出发前向纪念馆确认。'},
+      {n:7,zh:'大韩民国历史博物馆',ko:'대한민국역사박물관',addr:'서울 종로구 세종대로 198',lat:37.5740,lng:126.9778,rec:3,desc:'韩国近现代史通史馆，免费，顺带逛光化门广场。',note:'周一正常开放10:00–18:00；周三、周六延长至21:00。2026年8/17可按正常周一安排，临出发再看临时公告。'},
+      {n:8,zh:'首尔圣公会主教座堂',ko:'대한성공회 서울주교좌성당',addr:'서울 중구 세종대로21길 15',lat:37.5671,lng:126.9761,rec:2,desc:'砖红色圣公会教堂，紧邻德寿宫，打卡顺带。',note:'Visit Seoul当前列工作日11:00–16:00、周末不作普通参观；8/17周一可顺路，宗教活动时服从现场安排。'},
+      {n:9,zh:'明洞圣堂',ko:'명동대성당',addr:'서울 중구 명동길 74',lat:37.5632,lng:126.9872,rec:2,desc:'首尔地标哥特式教堂，明洞购物区旁。',note:'Visit Seoul当前列周二至周六9:00–19:00、周日7:00–21:00、周一闭馆；弥撒中不以游客方式参观。'}
+    ]},
+    festival: { color:'#287a5b', items:[
+      {n:1,zh:'普信阁光复节鸣钟',ko:'보신각',addr:'서울 종로구 종로 54',lat:37.5698,lng:126.9836,rec:5,desc:'首尔市已把8/15光复节纪念鸣钟列为2026年度活动；具体时刻仍待当届公告。',note:'📌 8/15是特殊官方仪式，不是游客公众敲钟体验。普通中午敲钟体验须预约，且周一、3/1、8/15及恶劣天气停办；不要套用旧届11:30时间。'},
+      {n:2,zh:'SM KWANGYA旷野（首尔林）',ko:'KWANGYA SEOUL',addr:'서울 성동구 왕십리로 83-21',lat:37.5441681,lng:127.0434524,rec:4,desc:'SM娱乐体验店，专辑和官方周边集中，SM粉丝可顺路逛。',note:'首尔林站5号出口附近；官方当前营业10:30–20:00，免费入店，临出发再核。'},
+      {n:3,zh:'HYBE总部外观',ko:'HYBE 하이브',addr:'서울 용산구 한강대로 42',lat:37.5246532,lng:126.9641564,rec:1,desc:'HYBE办公总部，只适合粉丝顺路看外观。',note:'HYBE INSIGHT龙山博物馆已于2023年关闭；不要按旧攻略找馆内展览，也不要进入办公区域。'},
+      {n:4,zh:'YG大楼外观',ko:'YG 엔터테인먼트',addr:'서울 마포구 희우정로1길 7',lat:37.5489197,lng:126.9077038,rec:2,desc:'YG总部外观，合井站附近；官方咖啡周边店the SameE就在旁边。',note:'办公区不可进入；真正适合游客的是隔壁the SameE。'},
+      {n:5,zh:'应援生日咖啡厅（到期活动）',ko:'생일 카페',addr:'弘大/合井一带按当周活动搜索',lat:37.5560,lng:126.9230,rec:2,map:false,desc:'粉丝临时举办的生日应援咖啡，地点和日期经常变化。',note:'不要按固定坐标导航；出发前一周在X、NOL或艺人官咖搜索2026年8月当周活动。'},
+      {n:6,zh:'the SameE（YG官方咖啡周边店）',ko:'더세임',addr:'서울 마포구 희우정로1길 6-3',lat:37.5492593,lng:126.9077280,rec:3,desc:'YG总部旁的官方咖啡与周边空间，2026年重新开放。',note:'Visit Seoul于2026年7月列为每天10:30–20:00；临出发再看临时休业公告。'}
+    ]},
+    river: { color:'#a86508', items:[
+      {n:1,zh:'汝矣岛汉江公园',ko:'여의도한강공원',addr:'서울 영등포구 여의동로 330',lat:37.5285,lng:126.9331,rec:2,desc:'汉江边散步看江景，备选（水上/夜晚活动已砍）。',note:'公园随时开放；水上活动已砍，仅散步看江。'},
+      {n:2,zh:'盘浦汉江公园',ko:'반포한강공원',addr:'서울 서초구 신반포로11길 40',lat:37.5088730,lng:126.9939435,rec:2,desc:'盘浦大桥喷泉一带，江景散步。',note:'公园开放但喷泉受季节、天气和维护影响；当天查首尔汉江官方公告。'}
+    ]},
+    love: { color:'#8b5cf6', items:[
+      {n:1,zh:'乱打秀 NANTA（弘大剧场）',ko:'홍대난타극장',addr:'서울 마포구 양화로16길 29',lat:37.5531923,lng:126.9211676,rec:5,desc:'无台词打击乐喜剧，语言门槛低，离酒店很近。',note:'正式地址已更新为杨花路16街29号；场次、价格和演出时长以NANTA官网/售票页为准。'},
+      {n:2,zh:'Trick Eye 3D美术馆',ko:'트릭아이뮤지엄',addr:'서울 마포구 홍익로3길 20 B2',lat:37.5535048,lng:126.9216864,rec:3,desc:'3D错觉艺术美术馆，可触摸拍照互动，与LOVE MUSEUM同址。',note:'⚠️ 官方网页资料更新不一致，第三方当前列10:00–19:00；不要按旧攻略的21:00/22:00到场，当天以Naver和电话0507-1357-7745确认。'},
+      {n:3,zh:'弘大性爱美术馆 LOVE MUSEUM',ko:'러브뮤지엄',addr:'서울 마포구 홍익로3길 20 B1',lat:37.5535048,lng:126.9216864,rec:4,desc:'成人性文化主题互动美术馆，可拍照体验。',note:'19岁以上；约¥37（8,000韩元）是旧官方旅游资料价，不是2026锁价。营业、停售及现场票价出发前确认。'},
+      {n:4,zh:'Meerkat Friends动物咖啡厅',ko:'미어캣프렌즈',addr:'서울 마포구 와우산로21길 20 2층',lat:37.5524777,lng:126.9229577,rec:2,desc:'弘大动物咖啡厅，可近距离看狐獴等动物。',note:'⚠️ 缺少稳定官方营业页，时间和互动规则只在当天用Naver复核；动物福利有争议，不列为必去。'},
+      {n:5,zh:'汗蒸幕体验（临时选附近店）',ko:'찜질방',addr:'弘大/首尔市区按当天营业店搜索',lat:37.5505,lng:126.9200,rec:2,map:false,desc:'韩国特色泡汤和汗蒸体验，但门店营业、性别区域和过夜规则差异很大。',note:'不要默认所有店24小时；当天按位置、最新评价和营业时间选具体门店。'},
+      {n:6,zh:'龙马乐园（旧游乐园拍摄地）',ko:'용마랜드',addr:'서울 중랑구 망우로70길 118',lat:37.5940813,lng:127.1045982,rec:2,desc:'旧游乐园改造成拍摄打卡地，位置较远。',note:'官方当前约10:00–18:00、成人约¥46（10,000韩元）；可能因拍摄临时关闭，专程去前联系确认。'},
+      {n:7,zh:'涂鸦秀 THE PAINTERS（光化门剧场）',ko:'페인터즈 광화문전용관',addr:'서울 중구 정동길 3 경향아트힐 1층',lat:37.5680721,lng:126.9699993,rec:2,desc:'现场作画、音乐和喜剧结合的无台词演出。',note:'官方当前约14:00/17:00/20:00，时长75分钟；以2026年8月售票页面为准。'}
+    ]},
+    food: { color:'#f59e0b', items:[
+      {n:1,zh:'广藏市场',ko:'광장시장',addr:'서울 종로구 창경궁로 88',lat:37.5714,lng:126.9994,rec:5,desc:'传统市场，可尝紫菜包饭、绿豆煎饼等韩国小吃。',note:'普通市场约9:00–18:00（周日多休）；美食街通常9:00–23:00、全年开放。摊位营业和价格各自不同，以现场菜单为准。'},
+      {n:2,zh:'韩式炸鸡（到附近再选店）',ko:'치킨',addr:'弘大/合井按当天最近分店搜索',lat:37.5530,lng:126.9230,rec:5,map:false,desc:'韩国国民美食，BHC、桥村等连锁都可；实际分店营业变化快。',note:'不要按本页虚拟坐标导航；在酒店附近打开Naver Map搜“치킨”，按营业中和最新评价选择。'},
+      {n:3,zh:'土俗村参鸡汤',ko:'토속촌 삼계탕',addr:'서울 종로구 자하문로5길 5',lat:37.5776803,lng:126.9715276,rec:4,desc:'景福宫旁知名参鸡汤老店，适合游宫后顺路吃。',note:'Visit Seoul于2026年7月列每天10:00–22:00；价格仍以现场菜单为准，热门时段常排队。'},
+      {n:4,zh:'便利店扫货',ko:'편의점',addr:'首尔全区 GS25/CU/7-Eleven',lat:37.5650,lng:126.9770,rec:4,map:false,desc:'饭团、紫菜包饭、牛奶和冰品适合早餐或宵夜。',note:'价格和商品随门店变化；直接按当前位置找最近便利店，不使用固定地图点。'},
+      {n:5,zh:'汤饭/泡菜汤',ko:'국밥 김치찌개',addr:'弘大/新村/大学路按当天营业店搜索',lat:37.5560,lng:126.9370,rec:4,map:false,desc:'平价暖胃，通常一人食方便。',note:'按“营业中”和最近评价选店；不要把网络旧价格当成现场保证。'},
+      {n:6,zh:'街头小吃',ko:'길거리 음식',addr:'明洞/弘大/广藏市场等商圈',lat:37.5555,lng:126.9700,rec:3,map:false,desc:'鱼糕、辣炒年糕、糖饼、鸡蛋面包，逛到哪里再决定。',note:'摊位和价格每天会变，不使用固定地图点；备少量现金。'},
+      {n:7,zh:'汝矣岛汉江炸鸡野餐',ko:'여의도한강공원',addr:'서울 영등포구 여의동로 330',lat:37.5285,lng:126.9331,rec:4,desc:'以汝矣岛汉江公园为明确导航点，到场后再按位置叫外卖或购买炸鸡。',note:'公园范围很大，先到汝矣渡口站附近活动广场；酒后不要下水，垃圾分类并全部带走。'}
+    ]}
+  };
+
+  // 每个真实地点的核验记录。影视关联与当前营业状态分开判断；“出发前复核”表示地址已核，但开放/场次可能变化。
+  var PLACE_META = {
+    'film-1':{status:'已核验',source:'Visit Seoul《鬼怪》路线',url:'https://english.visitseoul.net/tours/Seoul--Walking-in-the-Footsteps-of-Goblin-Part-II/ENN023699'},
+    'film-2':{status:'出发前复核',source:'VISITKOREA 学林茶房',url:'https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=47863'},
+    'film-4':{status:'已核验',source:'Visit Seoul《鬼怪》路线',url:'https://english.visitseoul.net/tours/fantastical-scenes-from-goblin-the-lonely-and-great-god/ENN021596'},
+    'film-5':{status:'出发前复核',source:'Visit Seoul《鬼怪》路线',url:'https://english.visitseoul.net/tours/fantastical-scenes-from-goblin-the-lonely-and-great-god/ENN021596'},
+    'film-6':{status:'已核验',source:'Visit Seoul 63 Square',url:'https://english.visitseoul.net/area/63-Square/ENP000210'},
+    'film-7':{status:'已核验',source:'Visit Seoul《鬼怪》路线',url:'https://english.visitseoul.net/tours/Seoul--Walking-in-the-Footsteps-of-Goblin-Part-II/ENN023699'},
+    'film-8':{status:'出发前复核',source:'现址：韩国文体部；影视关联非官方',url:'https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pRo=5&pSeq=68338'},
+    'film-9':{status:'出发前复核',source:'医院地址 + Korea Biomedical Review取景报道',url:'https://www.koreabiomed.com/news/articleView.html?idxno=8459'},
+    'history-1':{status:'已核验',source:'韩国国家遗产厅宫陵本部',url:'https://royal.khs.go.kr/ROYAL/contents/R702000000.do'},
+    'history-2':{status:'已核验',source:'首尔市北村访问限制公告',url:'https://english.seoul.go.kr/notice-on-restrictions-for-tourist-visits-to-bukchon-special-management-area-effective-from-november-2024/'},
+    'history-3':{status:'已核验',source:'Visit Seoul 光化门广场',url:'https://english.visitseoul.net/attractions/gwanghwamun-square/ENP001899'},
+    'history-4':{status:'已核验',source:'民主化运动纪念馆官方',url:'https://kdemo.or.kr/exhibit/visitGuide.do'},
+    'history-5':{status:'出发前复核',source:'西大门区2026光复节官方公告',url:'https://www.sdm.go.kr/news/news/notice.do?mode=view&sdmBoardSeq=313145'},
+    'history-6':{status:'出发前复核',source:'李韩烈纪念事业会',url:'https://www.leememorial.or.kr/?tpf=memorial%2Finfor'},
+    'history-7':{status:'已核验',source:'大韩民国历史博物馆官方',url:'https://www.much.go.kr/?cid=105'},
+    'history-8':{status:'出发前复核',source:'Visit Seoul 首尔圣公会座堂',url:'https://english.visitseoul.net/City-Hall-Area/Seoul-Anglican-Cathedral/ENP002030'},
+    'history-9':{status:'出发前复核',source:'Visit Seoul 明洞圣堂',url:'https://english.visitseoul.net/attractions/myeongdong-cathedral_/4036'},
+    'festival-1':{status:'出发前复核',source:'首尔市2026年度活动 + Visit Seoul',url:'https://festival.seoul.go.kr/festival/main/festivalView.do?festacode=388'},
+    'festival-2':{status:'出发前复核',source:'Visit Seoul KWANGYA',url:'https://english.visitseoul.net/shopping/KwangyaSeoul/ENPx2foc9'},
+    'festival-3':{status:'已核验',source:'HYBE INSIGHT官方闭馆公告',url:'https://hybeinsight.com/?locale=en'},
+    'festival-4':{status:'已核验',source:'YG官方公司地址',url:'https://www.ygfamily.com/en/about/introduction'},
+    'festival-6':{status:'出发前复核',source:'Visit Seoul the SamE（2026-07）',url:'https://english.visitseoul.net/area/the-SamE/ENPrnh215'},
+    'river-1':{status:'已核验',source:'Visit Seoul 汝矣岛汉江公园',url:'https://english.visitseoul.net/nature/Yeouido%20Hangang%20Park%20/ENP012993'},
+    'river-2':{status:'出发前复核',source:'Visit Seoul 盘浦汉江公园',url:'https://english.visitseoul.net/nature/banpo-hangang-park/ENP003968'},
+    'love-1':{status:'出发前复核',source:'Visit Seoul 弘大NANTA',url:'https://english.visitseoul.net/MapoArea/Nanta-Theater---Hongdae_/5159'},
+    'love-2':{status:'出发前复核',source:'Trickeye地址 + 当日须电话复核',url:'https://trickeye.wordpress.com/visiting/'},
+    'love-3':{status:'出发前复核',source:'韩国观光公社LOVE MUSEUM资料',url:'https://chinese.visitkorea.or.kr/svc/whereToGo/locIntrdn/rgnContentsView.do?vcontsId=77828'},
+    'love-4':{status:'出发前复核',source:'地址已核；缺少稳定官方营业页',url:'https://map.naver.com/p/search/%EB%AF%B8%EC%96%B4%EC%BA%A3%ED%94%84%EB%A0%8C%EC%A6%88'},
+    'love-6':{status:'出发前复核',source:'VISITKOREA 龙马乐园',url:'https://english.visitkorea.or.kr/svc/whereToGo/locIntrdn/rgnContentsView.do?vcontsId=193704'},
+    'love-7':{status:'出发前复核',source:'THE PAINTERS官方',url:'https://www.thepainters.co.kr/en'},
+    'food-1':{status:'已核验',source:'Visit Seoul 广藏市场',url:'https://english.visitseoul.net/shopping/gwangjang-market_/287'},
+    'food-3':{status:'出发前复核',source:'Visit Seoul 土俗村（2026-07）',url:'https://english.visitseoul.net/restaurants/TosokchonSamgyetang/ENPywjsmm'},
+    'food-7':{status:'已核验',source:'Visit Seoul 汉江炸鸡野餐',url:'https://english.visitseoul.net/tours/enjoy-chimaek-delivery-along-the-hangang-river/ENN031971'}
+  };
+  var VERIFIED_DATE = '2026-08-07';
+  var globalId = 0;
+  ['history','film','food','love','festival','river'].forEach(function(catKey){
+    SIGHTS[catKey].items.forEach(function(it){
+      if(it.map !== false){
+        it.gid = ++globalId;
+        var meta = PLACE_META[catKey+'-'+it.n] || {};
+        it.status = meta.status || '出发前复核';
+        it.verified = VERIFIED_DATE;
+        it.source = meta.source || '地址已核验';
+        it.sourceUrl = meta.url || naverUrl(it);
+      }
+    });
+  });
+
+  function naverUrl(it){ return 'https://map.naver.com/p/search/'+encodeURIComponent(it.ko+' '+it.addr); }
+  function appleUrl(it){ return 'https://maps.apple.com/?q='+encodeURIComponent(it.ko)+'&ll='+it.lat+','+it.lng; }
+
+  // 最近地铁站 + 线路（乘车提示）
+  var METRO = {
+    'film-1':'市厅站 ①②','film-2':'惠化站 ④','film-3':'景福宫站 ③','film-4':'建大入口站 ②⑦','film-5':'安国站 ③','film-6':'汝矣渡口站 ⑤','film-7':'龙踏站 ②','film-8':'景福宫/安国站 ③','film-9':'钵山站 ⑤',
+    'history-1':'景福宫站 ③ / 光化门站 ⑤','history-2':'安国站 ③','history-3':'光化门站 ⑤','history-4':'孝昌公园前站 ⑥','history-5':'独立门站 ③','history-6':'新村站 ②','history-7':'光化门站 ⑤','history-8':'市厅站 ①②','history-9':'明洞站 ④',
+    'festival-1':'钟阁站 ①','festival-2':'首尔林站(水仁盆唐) 5号口','festival-3':'新龙山站 ④','festival-4':'合井站 ②⑥','festival-5':'出发前按活动搜索','festival-6':'合井站 ②⑥',
+    'river-1':'汝矣渡口站 ⑤','river-2':'高速巴士客运站 ③⑦⑨','love-1':'弘大入口站 ②','love-2':'弘大入口站 ②','love-3':'弘大入口站 ②','love-4':'弘大入口站 ②','love-5':'当天按位置搜索','love-6':'忘忧站（京义·中央线）','love-7':'西大门站 ⑤ / 市厅站 ①②','food-1':'钟路5街站 ①','food-2':'当天按位置搜索','food-3':'景福宫站 ③','food-4':'全区各站','food-5':'当天按位置搜索','food-6':'明洞/弘大等商圈','food-7':'汝矣渡口站 ⑤'
+  };
+
+  var HOTELS = [
+    {code:'H',kind:'booked',zh:'Acube Hotel（已订）',ko:'에이큐브호텔',addr:'서울특별시 중구 동호로35길 5',lat:37.5662231,lng:127.0016072,metro:'乙支路四街②⑤约450米；去仁川须换乘普通AREX'},
+    {code:'B',kind:'candidate',zh:'Bobo Hotel（候选）',ko:'보보호텔',addr:'서울 마포구 양화로 94',lat:37.5523346,lng:126.9182698,metro:'合井站约6分钟；弘大入口AREX站台拖箱15–20分钟'}
+  ];
+
+  var mapInited = {};
+  function initMiniMap(catKey, mapId, listId){
+    var cfg = SIGHTS[catKey];
+    var el = document.getElementById(mapId);
+    if (!el || typeof L === 'undefined') {
+      if(el){ el.innerHTML = '<div class="offline">地图组件未加载<br>请联网后刷新，或用下方卡片跳转地图</div>'; }
+      renderMapList(catKey, listId, cfg, false);
+      bindSightChecks();
+      return;
+    }
+    mapInited[catKey] = true;
+    var map = L.map(el, {zoomControl:true, scrollWheelZoom:true, attributionControl:false}).setView([37.55,126.94], 11);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19}).addTo(map);
+    var mapItems = cfg.items.filter(function(it){ return it.map !== false; });
+    mapItems.forEach(function(it){
+      var mkey = catKey+'-'+it.n;
+      var metro = METRO[mkey] || '';
+      var stars=''; for(var s2=0;s2<(it.rec||0);s2++) stars+='★';
+      var icon = L.divIcon({className:'leaflet-div-icon', html:'<div class="m-pin" style="background:'+cfg.color+'"><b>'+it.gid+'</b></div><div class="m-label">'+esc(it.zh)+'</div>', iconSize:[0,0], iconAnchor:[10,20]});
+      var pop = '<div class="m-pop"><b><span class="mp-seq">'+it.gid+'</span>'+esc(it.zh)+' <span class="mp-star">'+stars+'</span></b><span class="ko">'+it.ko+'</span><small>'+it.addr+'</small>'
+              +(it.rec>=3?'<div class="m-rec">推荐度 '+stars+'</div>':'')
+              +(it.desc?'<div class="m-desc">'+esc(it.desc)+'</div>':'')
+              +(it.note?'<div class="m-note">'+escNote(it.note)+'</div>':'')
+              +(metro?'<div class="m-metro">🚇 最近站 '+esc(metro)+'</div>':'')
+              +sourceHTML(it, true)
+              +'<div class="mp-links" style="margin-top:6px"><a class="naver" href="'+naverUrl(it)+'" target="_blank" rel="noopener">Naver 导航</a>'
+              +'<a class="apple" href="'+appleUrl(it)+'" target="_blank" rel="noopener">Apple 地图</a></div></div>';
+      L.marker([it.lat,it.lng], {icon:icon}).addTo(map).bindPopup(pop);
+    });
+    HOTELS.forEach(function(h){ addHotelMarker(map,h); });
+    if (mapItems.length > 0){
+      var pointsForBounds = mapItems.map(function(p){return [p.lat,p.lng];});
+      HOTELS.forEach(function(h){ pointsForBounds.push([h.lat,h.lng]); });
+      var b = L.latLngBounds(pointsForBounds);
+      map.fitBounds(b, {padding:[22,22]});
+    }
+    renderMapList(catKey, listId, cfg, true);
+    bindSightChecks();
+  }
+  function renderMapList(catKey, listId, cfg){
+    var list = document.getElementById(listId);
+    if (!list) return;
+    list.innerHTML = cfg.items.map(function(it){
+      var mkey = catKey+'-'+it.n;
+      var metro = METRO[mkey] || '';
+      var stars = '';
+      for(var s=0;s<(it.rec||0);s++) stars+='★';
+      var note = it.note||'';
+      var noteHTML = note ? '<div class="mp-note'+(note.indexOf('⚠️')===0?'':' ok')+'">'+escNote(note)+'</div>' : '';
+      var actionHTML = it.map === false
+        ? '<span class="mp-act"><span class="tag t-pass">现场搜索</span></span>'
+        : '<span class="mp-act">'
+          +'<button type="button" class="mp-copy" data-copy="'+esc(it.ko+' '+it.addr)+'" aria-label="复制韩文地址">⧉</button>'
+          +'<span class="mp-dirs"><a class="naver" href="'+naverUrl(it)+'" target="_blank" rel="noopener">Nav</a>'
+          +'<a class="apple" href="'+appleUrl(it)+'" target="_blank" rel="noopener">Ap</a></span>'
+          +'</span>';
+      var displayId = it.map === false ? '提示' : it.gid;
+      return '<label class="row mp-item" data-item="'+catKey+'-'+it.n+'"'+(it.gid?' data-gid="'+it.gid+'"':'')+'>'
+        +'<input type="checkbox"><span class="ck"></span>'
+        +'<div class="mp-body"><b><span class="mp-seq">'+displayId+'</span>'+esc(it.zh)+'<span class="mp-star">'+stars+'</span></b>'
+        +'<div class="ko">'+it.ko+'</div><div class="addr">'+it.addr+'</div>'
+        +(it.desc?'<div class="mp-desc">'+esc(it.desc)+'</div>':'')
+        +noteHTML
+        +(metro?'<div class="mp-metro">🚇 '+esc(metro)+'</div>':'')
+        +(it.map === false?'':sourceHTML(it, false))
+        +'</div>'+actionHTML+'</label>';
+    }).join('');
+  }
+
+  function sourceHTML(it, popup){
+    if(!it.source) return '';
+    var cls = it.status === '出发前复核' ? 'verify-badge recheck' : 'verify-badge';
+    var prefix = popup ? '<div class="mp-source">' : '<div class="mp-source">';
+    return prefix+'<span class="'+cls+'">'+esc(it.status)+'</span><span>核验 '+esc(it.verified)+'</span><a href="'+esc(it.sourceUrl)+'" target="_blank" rel="noopener">来源：'+esc(it.source)+'</a></div>';
+  }
+
+  function addHotelMarker(map,h){
+    var candidate = h.kind === 'candidate';
+    var icon = L.divIcon({className:'leaflet-div-icon',html:'<div class="m-hotel-pin '+(candidate?'candidate':'')+'"><b>'+h.code+'</b></div><div class="m-hotel-label '+(candidate?'candidate':'')+'">'+esc(h.zh)+'</div>',iconSize:[0,0],iconAnchor:[10,20]});
+    var pop = '<div class="m-pop"><b>'+esc(h.code+' · '+h.zh)+'</b><span class="ko">'+esc(h.ko)+'</span><small>'+esc(h.addr)+'</small><div class="m-metro">🚇 '+esc(h.metro)+'</div><div class="mp-links"><a class="naver" href="'+naverUrl(h)+'" target="_blank" rel="noopener">Naver 导航</a><a class="apple" href="'+appleUrl(h)+'" target="_blank" rel="noopener">Apple 地图</a></div></div>';
+    L.marker([h.lat,h.lng],{icon:icon,zIndexOffset:1000}).addTo(map).bindPopup(pop);
+  }
+
+  var overviewMap = null, overviewMarkers = {};
+  function initOverviewMap(){
+    var el = document.getElementById('map-overview');
+    if(!el) return;
+    if(typeof L === 'undefined'){
+      el.innerHTML='<div class="offline">总览底图需联网加载<br>下方完整地点卡片仍可离线查看</div>';
+      return;
+    }
+    overviewMap=L.map(el,{zoomControl:true,scrollWheelZoom:true,attributionControl:false}).setView([37.555,126.976],11);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(overviewMap);
+    Object.keys(SIGHTS).forEach(function(catKey){
+      var cfg=SIGHTS[catKey];
+      cfg.items.filter(function(it){return it.map!==false;}).forEach(function(it){
+        var metro=METRO[catKey+'-'+it.n]||'',stars=''; for(var i=0;i<(it.rec||0);i++) stars+='★';
+        var icon=L.divIcon({className:'leaflet-div-icon',html:'<div class="m-pin" style="background:'+cfg.color+'"><b>'+it.gid+'</b></div><div class="m-label">'+esc(it.zh)+'</div>',iconSize:[0,0],iconAnchor:[10,20]});
+        var pop='<div class="m-pop"><b><span class="mp-seq">'+it.gid+'</span>'+esc(it.zh)+' <span class="mp-star">'+stars+'</span></b><span class="ko">'+esc(it.ko)+'</span><small>'+esc(it.addr)+'</small>'+(it.desc?'<div class="m-desc">'+esc(it.desc)+'</div>':'')+(it.note?'<div class="m-note">'+escNote(it.note)+'</div>':'')+(metro?'<div class="m-metro">🚇 '+esc(metro)+'</div>':'')+sourceHTML(it,true)+'<div class="mp-links"><a class="naver" href="'+naverUrl(it)+'" target="_blank" rel="noopener">Naver 导航</a><a class="apple" href="'+appleUrl(it)+'" target="_blank" rel="noopener">Apple 地图</a></div></div>';
+        var marker=L.marker([it.lat,it.lng],{icon:icon}).addTo(overviewMap).bindPopup(pop);
+        marker._cat=catKey; marker._item=it; overviewMarkers[it.gid]=marker;
+      });
+    });
+    HOTELS.forEach(function(h){addHotelMarker(overviewMap,h);});
+    fitOverview('all');
+    Array.prototype.slice.call(document.querySelectorAll('#map-filters .filter-btn')).forEach(function(btn){
+      btn.addEventListener('click',function(){
+        document.querySelectorAll('#map-filters .filter-btn').forEach(function(b){b.classList.toggle('active',b===btn);});
+        var filter=btn.getAttribute('data-filter');
+        Object.keys(overviewMarkers).forEach(function(k){var m=overviewMarkers[k];if(filter==='all'||m._cat===filter){m.addTo(overviewMap);}else{overviewMap.removeLayer(m);}});
+        fitOverview(filter);
+      });
+    });
+  }
+  function fitOverview(filter){
+    if(!overviewMap) return;
+    var pts=[];
+    Object.keys(overviewMarkers).forEach(function(k){var m=overviewMarkers[k];if(filter==='all'||m._cat===filter)pts.push(m.getLatLng());});
+    HOTELS.forEach(function(h){pts.push(L.latLng(h.lat,h.lng));});
+    if(pts.length) overviewMap.fitBounds(L.latLngBounds(pts),{padding:[24,24]});
+  }
+  function bindOverviewCardFocus(){
+    document.querySelectorAll('.map-list .mp-item[data-gid] .mp-body').forEach(function(body){
+      if(body.__mapBound)return; body.__mapBound=true;
+      body.addEventListener('click',function(e){
+        if(!overviewMap)return;
+        if(e.target.closest('a,button'))return;
+        var row=body.closest('[data-gid]'), marker=overviewMarkers[row.getAttribute('data-gid')];
+        if(marker){overviewMap.setView(marker.getLatLng(),15);marker.addTo(overviewMap).openPopup();document.getElementById('map-overview').scrollIntoView({behavior:'smooth',block:'center'});}
+      });
+    });
+  }
+
+  // esc 用于复制文本安全嵌入属性
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function escNote(s){ return esc(s).replace(/&lt;b&gt;/g,'<b>').replace(/&lt;\/b&gt;/g,'</b>'); }
+
+  function bindSightChecks(){
+    var pane = document.querySelector('.pane[data-pane="sights"]');
+    if (!pane) return;
+    // 重新加载进度 + 绑定 change
+    load(pane);
+    checksIn(pane).forEach(function(c){
+      // 避免重复绑定
+      if (c.__bound) return;
+      c.__bound = true;
+      c.addEventListener('change', function(){ save(pane); refresh(pane); });
+    });
+  }
+
+  function copyText(txt, btn){
+    function done(){ btn.classList.add('now'); setTimeout(function(){ btn.classList.remove('now'); },1300); }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done).catch(function(){ fallbackCopy(txt); done(); });
+    } else { fallbackCopy(txt); done(); }
+  }
+  function fallbackCopy(txt){
+    var ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity=0; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  var mapsLaunched = false;
+  function launchMaps(){
+    if (mapsLaunched) return; mapsLaunched = true;
+    initOverviewMap();
+    initMiniMap('film','map-film','list-film');
+    initMiniMap('history','map-history','list-history');
+    initMiniMap('festival','map-festival','list-festival');
+    initMiniMap('river','map-river','list-river');
+    initMiniMap('love','map-love','list-love');
+    initMiniMap('food','map-food','list-food');
+    bindOverviewCardFocus();
+    // 统一绑定复制按钮
+    document.addEventListener('click', function(e){
+      var b = e.target.closest('[data-copy]');
+      if (b) copyText(b.getAttribute('data-copy'), b);
+    });
+  }
+
+  panes.forEach(function(pane){
+    load(pane);
+    checksIn(pane).forEach(function(c){
+      c.addEventListener('change', function(){ save(pane); refresh(pane); });
+    });
+  });
+  tabs.forEach(function(t){ t.addEventListener('click', function(){
+    switchTab(t);
+    if (t.dataset.tab === 'sights') launchMaps();
+    setTimeout(function(){ try{ document.querySelectorAll('.mini-map').forEach(function(m){ if(m._leaflet_map) m._leaflet_map.invalidateSize(); }); }catch(e){} }, 60);
+  }); });
+  // 若初始 tab 是 sights（刷新记住选中）也启动地图
+  if (document.querySelector('.tab.active').dataset.tab === 'sights') launchMaps();
+
+  // 初始：pack
+  var cur = panes.filter(function(p){return p.dataset.pane==='pack'})[0] || panes[0];
+  refresh(cur);
+})();
+</script>
+</body>
+</html>
