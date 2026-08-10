@@ -163,8 +163,12 @@
   .phrase-text{flex:1;min-width:0}
   .phrase-zh{font-size:12px;color:var(--muted);margin-bottom:2px}
   .phrase-en{font-size:14px;line-height:1.35;color:#1c2a3c;font-weight:800;word-break:break-word}
-  .phrase-copy{flex:0 0 auto;border:1px solid #b8d5f5;background:var(--blue-soft);color:var(--blue);font-size:11px;font-weight:900;border-radius:10px;padding:8px 9px;cursor:pointer;min-height:34px}
-  .phrase-copy.now,.phrase-copy:active{background:var(--green);border-color:var(--green);color:#fff}
+  .phrase-ko{font-size:12px;line-height:1.35;color:var(--blue);margin-top:3px;word-break:keep-all}
+  .phrase-actions{flex:0 0 58px;display:flex;flex-direction:column;gap:6px}
+  .phrase-copy,.phrase-speak{border:1px solid #b8d5f5;background:var(--blue-soft);color:var(--blue);font-size:10px;font-weight:900;border-radius:10px;padding:7px 5px;cursor:pointer;min-height:32px;white-space:nowrap}
+  .phrase-speak{background:var(--navy);border-color:var(--navy);color:#fff}
+  .phrase-copy.now,.phrase-copy:active,.phrase-speak.now,.phrase-speak:active{background:var(--green);border-color:var(--green);color:#fff}
+  .phrase-speak.unavailable{background:var(--muted);border-color:var(--muted)}
 </style>
 </head>
 <body>
@@ -314,9 +318,10 @@
   </div><!-- /pane-pack -->
 
   <div class="shell pane" data-pane="phrases">
-    <div class="notice"><strong>💬 出国常用英语</strong>每条都可直接点“复制”，再给工作人员看或粘贴进翻译 App。优先用简单句；听不懂时直接说 <b>Could you please show me?</b> 也完全可以。</div>
-    <p class="phrase-intro">中英双语 · 离线也能查看和复制 · 句子按实际旅行场景排列</p>
+    <div class="notice"><strong>💬 出国常用英语 · 100句</strong>每条包含中文、英语和韩语。点“复制”可给工作人员看；点“🔊 0.8×”播放慢速英语。韩语只作现场展示，当前不播放韩语。</div>
+    <p class="phrase-intro">中英韩对照 · 英语慢速播放 · 离线文字仍可查看 · 射击内容仅用于合法靶场和安全沟通</p>
 
+    <div id="phrase-groups">
     <section class="phrase-category"><h2 class="phrase-title">✈️ 机场与航班 <span>Airport</span></h2><div class="phrase-card">
       <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">值机柜台在哪里？</div><div class="phrase-en">Where is the check-in counter?</div></div><button class="phrase-copy" data-copy="Where is the check-in counter?">复制</button></div>
       <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我想托运这个行李箱。</div><div class="phrase-en">I'd like to check this suitcase.</div></div><button class="phrase-copy" data-copy="I'd like to check this suitcase.">复制</button></div>
@@ -368,7 +373,8 @@
       <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">请说慢一点，或写下来。</div><div class="phrase-en">Could you speak slowly or write it down?</div></div><button class="phrase-copy" data-copy="Could you speak slowly or write it down?">复制</button></div>
       <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">可以在地图上给我看吗？</div><div class="phrase-en">Could you please show me on the map?</div></div><button class="phrase-copy" data-copy="Could you please show me on the map?">复制</button></div>
     </div></section>
-    <div class="footer">💬 常用英语 · 点击“复制”后可粘贴到 Papago、短信或直接给对方看</div>
+    </div>
+    <div class="footer">💬 常用英语 · 英语语音速度0.8× · 语音音色由iPhone已安装的英语语音决定</div>
   </div><!-- /pane-phrases -->
 
   <div class="shell pane" data-pane="sights">
@@ -475,6 +481,143 @@
     panes.forEach(function(p){ p.classList.toggle('active', p.dataset.pane===name); });
     var active = panes.filter(function(p){return p.dataset.pane===name})[0];
     refresh(active);
+  }
+
+  // ====== 中英韩旅行用语（英语语音只在用户点击时播放） ======
+  var PHRASE_GROUPS = [
+    {icon:'✈️',title:'机场与航班',sub:'Airport',items:[
+      ['值机柜台在哪里？','Where is the check-in counter?','체크인 카운터가 어디예요?'],
+      ['我想托运这个行李箱。',"I'd like to check this suitcase.",'이 여행 가방을 부치고 싶어요.'],
+      ['这个行李箱没有超重吧？','Is this suitcase within the weight limit?','이 여행 가방은 무게 제한 이내인가요?'],
+      ['我的托运行李额度是多少？','What is my checked baggage allowance?','제 위탁 수하물 허용량이 얼마인가요?'],
+      ['安检入口在哪里？','Where is the security checkpoint?','보안 검색대가 어디예요?'],
+      ['登机口在哪里？','Where is the boarding gate?','탑승구가 어디예요?'],
+      ['已经开始登机了吗？','Has boarding started yet?','탑승이 시작됐나요?'],
+      ['这趟航班延误了吗？','Has this flight been delayed?','이 항공편이 지연됐나요?'],
+      ['行李提取处在哪里？','Where is baggage claim?','수하물 찾는 곳이 어디예요?'],
+      ['我的行李还没有出来。',"My luggage hasn't arrived yet.",'제 짐이 아직 나오지 않았어요.']
+    ]},
+    {icon:'🏨',title:'酒店入住与服务',sub:'Hotel',items:[
+      ['我有预订，名字是……','I have a reservation under the name ...','… 이름으로 예약했어요.'],
+      ['可以提前入住吗？','Is early check-in possible?','얼리 체크인이 가능한가요?'],
+      ['入住前可以寄存行李吗？','Can I leave my luggage here before check-in?','체크인 전에 짐을 맡길 수 있나요?'],
+      ['退房后可以寄存行李吗？','Can I leave my luggage here after check-out?','체크아웃 후에 짐을 맡길 수 있나요?'],
+      ['退房时间是几点？','What time is check-out?','체크아웃은 몇 시예요?'],
+      ['Wi-Fi 密码是什么？','What is the Wi-Fi password?','와이파이 비밀번호가 뭐예요?'],
+      ['我的房卡不能使用。',"My room key isn't working.",'객실 카드키가 작동하지 않아요.'],
+      ['可以给我们一间安静的房间吗？','Could we have a quiet room, please?','조용한 객실로 부탁드려도 될까요?'],
+      ['可以再给我们两条毛巾吗？','Could we have two more towels, please?','수건 두 장 더 주실 수 있나요?'],
+      ['可以帮我们叫出租车吗？','Could you please call a taxi for us?','택시를 불러 주실 수 있나요?']
+    ]},
+    {icon:'🍽️',title:'餐厅与咖啡馆',sub:'Restaurant',items:[
+      ['两位，谢谢。','A table for two, please.','두 명이에요.'],
+      ['有英文菜单或图片菜单吗？','Do you have an English or picture menu?','영어나 사진 메뉴가 있나요?'],
+      ['你推荐哪一道菜？','What dish do you recommend?','어떤 메뉴를 추천하세요?'],
+      ['这个是什么？','What is this?','이게 뭐예요?'],
+      ['不要太辣，谢谢。','Not too spicy, please.','너무 맵지 않게 해 주세요.'],
+      ['我们不吃牛肉。',"We don't eat beef.",'저희는 소고기를 먹지 않아요.'],
+      ['这个里面有花生吗？','Does this contain peanuts?','여기에 땅콩이 들어가나요?'],
+      ['请给我们两杯水。','Two glasses of water, please.','물 두 잔 주세요.'],
+      ['可以再给一个小盘子吗？','Could we have another small plate?','앞접시 하나 더 주실 수 있나요?'],
+      ['可以打包吗？','Could you pack this to go?','포장해 주실 수 있나요?'],
+      ['请给我们账单。','Could we have the bill, please?','계산서 주세요.'],
+      ['我们一起付款。',"We'll pay together.",'한꺼번에 계산할게요.']
+    ]},
+    {icon:'🚇',title:'地铁、机场铁路与问路',sub:'Transport',items:[
+      ['机场铁路在哪里？','Where is the Airport Railroad?','공항철도가 어디예요?'],
+      ['去弘大入口站怎么走？','How do I get to Hongik University Station?','홍대입구역에 어떻게 가요?'],
+      ['这趟车去仁川机场吗？','Does this train go to Incheon Airport?','이 열차가 인천공항에 가나요?'],
+      ['我要去 T1 / T2 航站楼。','I need to go to Terminal 1 / Terminal 2.','제1터미널 / 제2터미널로 가야 해요.'],
+      ['我需要在哪一站换乘？','Where should I transfer?','어느 역에서 갈아타야 하나요?'],
+      ['应该去哪个站台？','Which platform should I use?','어느 승강장으로 가야 하나요?'],
+      ['末班车是几点？','What time is the last train?','막차가 몇 시예요?'],
+      ['在哪里给 T-money 充值？','Where can I top up my T-money card?','티머니 카드는 어디에서 충전할 수 있나요?'],
+      ['请送我们到这个地址。','Please take us to this address.','이 주소로 가 주세요.'],
+      ['请在这里停车。','Could you stop here, please?','여기에서 세워 주세요.']
+    ]},
+    {icon:'🛍️',title:'购物、退税与付款',sub:'Shopping',items:[
+      ['我只是看看，谢谢。',"I'm just looking, thank you.",'그냥 둘러보는 중이에요. 감사합니다.'],
+      ['可以试穿吗？','May I try this on?','입어 봐도 될까요?'],
+      ['有更大/更小的尺码吗？','Do you have a larger / smaller size?','더 큰 / 작은 사이즈가 있나요?'],
+      ['有其他颜色吗？','Do you have this in another color?','다른 색상도 있나요?'],
+      ['这个多少钱？','How much is this?','이거 얼마예요?'],
+      ['可以退税吗？','Can I get a tax refund?','택스 리펀드가 가능한가요?'],
+      ['退税需要出示护照吗？','Do I need my passport for the tax refund?','택스 리펀드에 여권이 필요한가요?'],
+      ['可以刷卡吗？','Can I pay by card?','카드로 결제할 수 있나요?'],
+      ['请用韩元结算。','Please charge me in Korean won.','원화로 결제해 주세요.'],
+      ['请给我收据和袋子。','Could I have the receipt and a bag, please?','영수증과 봉투 주세요.']
+    ]},
+    {icon:'🚨',title:'紧急、医疗与万能句',sub:'Emergency',items:[
+      ['请帮帮我。','Please help me.','도와주세요.'],
+      ['我需要警察。','I need the police.','경찰이 필요해요.'],
+      ['我需要医生。','I need a doctor.','의사가 필요해요.'],
+      ['请拨打 112 / 119。','Please call 112 / 119.','112 / 119에 전화해 주세요.'],
+      ['我丢了护照。','I lost my passport.','여권을 잃어버렸어요.'],
+      ['我丢了手机。','I lost my phone.','휴대전화를 잃어버렸어요.'],
+      ['我需要翻译。','I need an interpreter.','통역이 필요해요.'],
+      ['请说慢一点。','Could you speak more slowly, please?','천천히 말씀해 주세요.'],
+      ['请写下来或在地图上给我看。','Could you write it down or show me on the map?','적어 주시거나 지도에서 보여 주세요.'],
+      ['最近的药店在哪里？','Where is the nearest pharmacy?','가장 가까운 약국이 어디예요?']
+    ]},
+    {icon:'🎯',title:'实弹射击场：预约与价格',sub:'Range Check-in',items:[
+      ['我预约了实弹射击。','I have a reservation for live-fire shooting.','실탄 사격을 예약했어요.'],
+      ['没有预约也可以体验吗？','Can we shoot without a reservation?','예약 없이 이용할 수 있나요?'],
+      ['外国游客可以在这里射击吗？','Can foreign visitors use this shooting range?','외국인도 이 사격장을 이용할 수 있나요?'],
+      ['需要护照原件吗？','Do I need my original passport?','여권 원본이 필요한가요?'],
+      ['这是我第一次实弹射击。','This is my first time shooting a real firearm.','실탄 사격이 처음이에요.'],
+      ['适合初学者的是哪一个套餐？','Which package do you recommend for a beginner?','초보자에게 어떤 코스를 추천하세요?'],
+      ['弹药包含在价格里吗？','Is ammunition included in the price?','탄약이 가격에 포함되어 있나요?'],
+      ['这个套餐有多少发子弹？','How many rounds are included in this package?','이 코스는 몇 발이 포함되어 있나요?'],
+      ['两个人总共多少钱？','How much is it for two people in total?','두 명의 총 비용이 얼마인가요?'],
+      ['可以刷卡吗？','Can I pay by card?','카드로 결제할 수 있나요?'],
+      ['需要等多久？','How long is the wait?','대기 시간이 얼마나 되나요?'],
+      ['可以拍照或录像吗？','May we take photos or videos?','사진이나 동영상을 찍어도 되나요?']
+    ]},
+    {icon:'🛡️',title:'实弹射击场：安全与操作',sub:'Range Safety',items:[
+      ['请先给我做安全讲解。','Please give me a safety briefing first.','먼저 안전 교육을 해 주세요.'],
+      ['请慢慢说明安全操作方法。','Please explain how to operate it safely and slowly.','안전하게 사용하는 방법을 천천히 설명해 주세요.'],
+      ['请先用未装弹的枪示范。','Please demonstrate with the firearm unloaded first.','장전하지 않은 상태에서 먼저 시범을 보여 주세요.'],
+      ['我需要护目镜和听力保护。','I need eye and hearing protection.','보안경과 귀마개가 필요해요.'],
+      ['我应该站在哪里？','Where should I stand?','어디에 서야 하나요?'],
+      ['请帮我纠正站姿。','Please correct my stance.','자세를 교정해 주세요.'],
+      ['我的握持方法正确吗？','Am I holding it correctly?','그립을 올바르게 잡고 있나요?'],
+      ['准备射击前，我会把手指放在扳机外。',"I'll keep my finger off the trigger until I'm ready to shoot.",'발사할 준비가 될 때까지 방아쇠에서 손가락을 떼겠습니다.'],
+      ['我会一直让枪口朝向靶子。',"I'll keep the muzzle pointed downrange.",'항상 총구를 표적 방향으로 두겠습니다.'],
+      ['什么时候可以开始射击？','When may I start shooting?','언제 사격을 시작해도 되나요?'],
+      ['现在需要立即停止射击吗？','Should I stop firing immediately?','지금 즉시 사격을 중지해야 하나요?'],
+      ['发生故障时，我应该放下枪并叫教练吗？','If it malfunctions, should I set it down and call the instructor?','작동 이상이 생기면 총을 내려놓고 교관을 부르면 되나요?']
+    ]},
+    {icon:'🔍',title:'枪械术语与体验选择',sub:'Firearm Terms',items:[
+      ['这把枪的型号和口径是什么？','What model and caliber is this firearm?','이 총의 모델과 구경은 무엇인가요?'],
+      ['这是半自动手枪吗？','Is this a semi-automatic pistol?','이것은 반자동 권총인가요?'],
+      ['手枪和左轮手枪有什么区别？','What is the difference between a pistol and a revolver?','권총과 리볼버의 차이가 무엇인가요?'],
+      ['哪一种后坐力更小？','Which one has less recoil?','어느 것이 반동이 더 적나요?'],
+      ['请指出套筒、枪管、弹匣和扳机。','Please point out the slide, barrel, magazine, and trigger.','슬라이드, 총열, 탄창, 방아쇠를 가리켜 주세요.'],
+      ['保险和弹匣释放钮在哪里？','Where are the safety and magazine release?','안전장치와 탄창 멈치는 어디에 있나요?'],
+      ['应该怎样使用准星瞄准？','How should I align the sights?','조준기는 어떻게 정렬해야 하나요?'],
+      ['可以确认枪已经退弹并处于安全状态吗？','Could you confirm that the firearm is unloaded and safe?','총이 비어 있고 안전한 상태인지 확인해 주시겠어요?']
+    ]},
+    {icon:'🧢',title:'靶场商店与合法纪念品',sub:'Range Shop',items:[
+      ['我只是看看，谢谢。',"I'm just looking, thank you.",'그냥 둘러보는 중이에요. 감사합니다.'],
+      ['你们出售射击护目镜吗？','Do you sell shooting glasses?','사격용 보안경을 판매하나요?'],
+      ['你们出售听力保护用品吗？','Do you sell hearing protection?','청력 보호 장비를 판매하나요?'],
+      ['有靶场纪念品、徽章或钥匙扣吗？','Do you have range souvenirs, patches, or key chains?','사격장 기념품, 패치나 열쇠고리가 있나요?'],
+      ['这是纪念品，不是枪械部件，对吗？','This is a souvenir, not a firearm part, correct?','이것은 총기 부품이 아니라 기념품이 맞나요?'],
+      ['这个物品可以合法带出韩国吗？','Is this item legal to take out of Korea?','이 물품을 합법적으로 한국 밖으로 가져갈 수 있나요?']
+    ]}
+  ];
+
+  function renderPhrasebook(){
+    var root = document.getElementById('phrase-groups');
+    if(!root) return;
+    root.innerHTML = PHRASE_GROUPS.map(function(group){
+      return '<section class="phrase-category"><h2 class="phrase-title">'+esc(group.icon)+' '+esc(group.title)+' <span>'+esc(group.sub)+'</span></h2><div class="phrase-card">'
+        + group.items.map(function(item){
+          return '<div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">'+esc(item[0])+'</div><div class="phrase-en">'+esc(item[1])+'</div><div class="phrase-ko" lang="ko">'+esc(item[2])+'</div></div>'
+            +'<div class="phrase-actions"><button type="button" class="phrase-copy" data-copy="'+esc(item[1])+'" aria-label="复制英文：'+esc(item[0])+'">复制</button>'
+            +'<button type="button" class="phrase-speak" data-speak="'+esc(item[1])+'" aria-label="慢速播放英文：'+esc(item[0])+'">🔊 0.8×</button></div></div>';
+        }).join('')+'</div></section>';
+    }).join('');
   }
 
   // ====== 景点地图 (Leaflet) ======
@@ -765,6 +908,41 @@
     document.body.removeChild(ta);
   }
 
+  function chooseEnglishVoice(synth){
+    var voices = synth.getVoices ? synth.getVoices() : [];
+    var preferred = ['Samantha','Ava','Allison','Susan','Alex'];
+    for(var i=0;i<preferred.length;i++){
+      var exact = voices.filter(function(v){return v.lang === 'en-US' && v.name.indexOf(preferred[i]) !== -1;})[0];
+      if(exact) return exact;
+    }
+    return voices.filter(function(v){return v.lang === 'en-US';})[0]
+      || voices.filter(function(v){return String(v.lang).indexOf('en') === 0;})[0]
+      || null;
+  }
+
+  function speakEnglish(txt, btn){
+    var synth = window.speechSynthesis;
+    if(!synth || typeof window.SpeechSynthesisUtterance === 'undefined'){
+      btn.classList.add('unavailable');
+      btn.textContent = '不可用';
+      return;
+    }
+    synth.cancel();
+    document.querySelectorAll('.phrase-speak.now').forEach(function(b){b.classList.remove('now');b.textContent='🔊 0.8×';});
+    var utterance = new window.SpeechSynthesisUtterance(txt);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.8;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+    var voice = chooseEnglishVoice(synth);
+    if(voice) utterance.voice = voice;
+    function reset(){btn.classList.remove('now');btn.textContent='🔊 0.8×';}
+    utterance.onstart = function(){btn.classList.add('now');btn.textContent='播放中';};
+    utterance.onend = reset;
+    utterance.onerror = reset;
+    synth.speak(utterance);
+  }
+
   var mapsLaunched = false;
   function launchMaps(){
     if (mapsLaunched) return; mapsLaunched = true;
@@ -782,8 +960,11 @@
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-copy]');
     if (b) copyText(b.getAttribute('data-copy'), b);
+    var s = e.target.closest('[data-speak]');
+    if (s) speakEnglish(s.getAttribute('data-speak'), s);
   });
 
+  renderPhrasebook();
   panes.forEach(function(pane){
     load(pane);
     checksIn(pane).forEach(function(c){
