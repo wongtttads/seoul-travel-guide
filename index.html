@@ -56,6 +56,7 @@
   .tab{flex:1;text-align:center;padding:12px 8px;border-radius:13px 13px 0 0;font-size:13px;font-weight:800;color:var(--muted);cursor:pointer;border:1px solid var(--line);border-bottom:0;background:#efe9df;transition:.15s}
   .tab.active{background:var(--card);color:var(--navy);box-shadow:0 -4px 14px rgba(16,37,63,.05)}
   .tab .em{display:block;font-size:10px;font-weight:600}
+  @media(max-width:420px){.tab{padding:10px 3px;font-size:11px}.tab .em{font-size:10px}}
   .pane{display:none}
   .pane.active{display:block;animation:fade .2s ease}
   @keyframes fade{from{opacity:0}to{opacity:1}}
@@ -151,6 +152,19 @@
   .it-slot-txt span{font-size:11px;color:var(--muted)}
   .it-slot-txt .it-note{font-size:11px;color:var(--red);font-weight:700;display:block;margin-top:2px}
   .it-flag{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:99px;margin-left:6px}
+  /* 常用英语 */
+  .phrase-intro{font-size:12px;color:var(--muted);margin:8px 0 16px}
+  .phrase-category{margin:18px 0 22px}
+  .phrase-title{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:900;color:var(--navy);margin:0 2px 9px}
+  .phrase-title span{font-size:11px;font-weight:700;color:var(--muted)}
+  .phrase-card{background:var(--card);border:1px solid var(--line);border-radius:15px;box-shadow:0 4px 14px rgba(16,37,63,.045);overflow:hidden}
+  .phrase-row{display:flex;gap:10px;align-items:center;padding:12px 13px;border-bottom:1px solid var(--line)}
+  .phrase-row:last-child{border-bottom:0}
+  .phrase-text{flex:1;min-width:0}
+  .phrase-zh{font-size:12px;color:var(--muted);margin-bottom:2px}
+  .phrase-en{font-size:14px;line-height:1.35;color:#1c2a3c;font-weight:800;word-break:break-word}
+  .phrase-copy{flex:0 0 auto;border:1px solid #b8d5f5;background:var(--blue-soft);color:var(--blue);font-size:11px;font-weight:900;border-radius:10px;padding:8px 9px;cursor:pointer;min-height:34px}
+  .phrase-copy.now,.phrase-copy:active{background:var(--green);border-color:var(--green);color:#fff}
 </style>
 </head>
 <body>
@@ -167,6 +181,7 @@
     <div class="tab active" data-tab="pack"><span class="em">🧳</span>携带清单</div>
     <div class="tab" data-tab="sights"><span class="em">📍</span>景点清单</div>
     <div class="tab" data-tab="itinerary"><span class="em">🗓️</span>每日行程</div>
+    <div class="tab" data-tab="phrases"><span class="em">💬</span>常用英语</div>
   </div>
 
   <div class="shell pane active" data-pane="pack">
@@ -297,6 +312,64 @@
 
     <div class="footer">🧳 携带清单 · 勾选进度保存在本页面（刷新仍在）<br>参考换算（2026-08-07）：1元人民币≈218韩元，1港元≈0.86元人民币；页面为便于预算的四舍五入金额，实际以刷卡、换汇或结算当日为准。</div>
   </div><!-- /pane-pack -->
+
+  <div class="shell pane" data-pane="phrases">
+    <div class="notice"><strong>💬 出国常用英语</strong>每条都可直接点“复制”，再给工作人员看或粘贴进翻译 App。优先用简单句；听不懂时直接说 <b>Could you please show me?</b> 也完全可以。</div>
+    <p class="phrase-intro">中英双语 · 离线也能查看和复制 · 句子按实际旅行场景排列</p>
+
+    <section class="phrase-category"><h2 class="phrase-title">✈️ 机场与航班 <span>Airport</span></h2><div class="phrase-card">
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">值机柜台在哪里？</div><div class="phrase-en">Where is the check-in counter?</div></div><button class="phrase-copy" data-copy="Where is the check-in counter?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我想托运这个行李箱。</div><div class="phrase-en">I'd like to check this suitcase.</div></div><button class="phrase-copy" data-copy="I'd like to check this suitcase.">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我的行李额度是多少？</div><div class="phrase-en">What is my checked baggage allowance?</div></div><button class="phrase-copy" data-copy="What is my checked baggage allowance?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">登机口在哪里？</div><div class="phrase-en">Where is the boarding gate?</div></div><button class="phrase-copy" data-copy="Where is the boarding gate?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我的行李还没有出来。</div><div class="phrase-en">My luggage hasn't arrived yet.</div></div><button class="phrase-copy" data-copy="My luggage hasn't arrived yet.">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">请问机场铁路在哪里？</div><div class="phrase-en">Where is the Airport Railroad?</div></div><button class="phrase-copy" data-copy="Where is the Airport Railroad?">复制</button></div>
+    </div></section>
+
+    <section class="phrase-category"><h2 class="phrase-title">🏨 酒店 <span>Hotel</span></h2><div class="phrase-card">
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我有预订，名字是……</div><div class="phrase-en">I have a reservation under the name ...</div></div><button class="phrase-copy" data-copy="I have a reservation under the name ...">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我可以提前入住吗？</div><div class="phrase-en">Is early check-in possible?</div></div><button class="phrase-copy" data-copy="Is early check-in possible?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">退房后可以寄存行李吗？</div><div class="phrase-en">Can I leave my luggage here after check-out?</div></div><button class="phrase-copy" data-copy="Can I leave my luggage here after check-out?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">请问 Wi-Fi 密码是什么？</div><div class="phrase-en">What is the Wi-Fi password?</div></div><button class="phrase-copy" data-copy="What is the Wi-Fi password?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">可以帮我们叫出租车吗？</div><div class="phrase-en">Could you please call a taxi for us?</div></div><button class="phrase-copy" data-copy="Could you please call a taxi for us?">复制</button></div>
+    </div></section>
+
+    <section class="phrase-category"><h2 class="phrase-title">🍽️ 餐厅与咖啡馆 <span>Restaurant</span></h2><div class="phrase-card">
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">两位，谢谢。</div><div class="phrase-en">A table for two, please.</div></div><button class="phrase-copy" data-copy="A table for two, please.">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">可以给我英文菜单或图片菜单吗？</div><div class="phrase-en">Do you have an English or picture menu?</div></div><button class="phrase-copy" data-copy="Do you have an English or picture menu?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">这个是什么？</div><div class="phrase-en">What is this?</div></div><button class="phrase-copy" data-copy="What is this?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">不要太辣，谢谢。</div><div class="phrase-en">Not too spicy, please.</div></div><button class="phrase-copy" data-copy="Not too spicy, please.">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我们不吃牛肉。</div><div class="phrase-en">We don't eat beef.</div></div><button class="phrase-copy" data-copy="We don't eat beef.">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">请给我们账单。</div><div class="phrase-en">Could we have the bill, please?</div></div><button class="phrase-copy" data-copy="Could we have the bill, please?">复制</button></div>
+    </div></section>
+
+    <section class="phrase-category"><h2 class="phrase-title">🚇 地铁与问路 <span>Transport</span></h2><div class="phrase-card">
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">去弘大入口站怎么走？</div><div class="phrase-en">How do I get to Hongik University Station?</div></div><button class="phrase-copy" data-copy="How do I get to Hongik University Station?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">这趟车去仁川机场吗？</div><div class="phrase-en">Does this train go to Incheon Airport?</div></div><button class="phrase-copy" data-copy="Does this train go to Incheon Airport?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我要去 T1 / T2 航站楼。</div><div class="phrase-en">I need to go to Terminal 1 / Terminal 2.</div></div><button class="phrase-copy" data-copy="I need to go to Terminal 1 / Terminal 2.">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我需要在哪一站换乘？</div><div class="phrase-en">Where should I transfer?</div></div><button class="phrase-copy" data-copy="Where should I transfer?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我可以用信用卡付款吗？</div><div class="phrase-en">Can I pay by card?</div></div><button class="phrase-copy" data-copy="Can I pay by card?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">可以帮我在这里停一下吗？</div><div class="phrase-en">Could you stop here, please?</div></div><button class="phrase-copy" data-copy="Could you stop here, please?">复制</button></div>
+    </div></section>
+
+    <section class="phrase-category"><h2 class="phrase-title">🛍️ 购物与付款 <span>Shopping</span></h2><div class="phrase-card">
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我只是看看，谢谢。</div><div class="phrase-en">I'm just looking, thank you.</div></div><button class="phrase-copy" data-copy="I'm just looking, thank you.">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">可以试穿吗？</div><div class="phrase-en">May I try this on?</div></div><button class="phrase-copy" data-copy="May I try this on?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">有更大/更小的尺码吗？</div><div class="phrase-en">Do you have a larger / smaller size?</div></div><button class="phrase-copy" data-copy="Do you have a larger / smaller size?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我可以退税吗？</div><div class="phrase-en">Can I get a tax refund?</div></div><button class="phrase-copy" data-copy="Can I get a tax refund?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">请用韩元结算。</div><div class="phrase-en">Please charge me in Korean won.</div></div><button class="phrase-copy" data-copy="Please charge me in Korean won.">复制</button></div>
+    </div></section>
+
+    <section class="phrase-category"><h2 class="phrase-title">🚨 紧急与万能句 <span>Emergency</span></h2><div class="phrase-card">
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">请帮帮我。</div><div class="phrase-en">Please help me.</div></div><button class="phrase-copy" data-copy="Please help me.">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我需要警察 / 医生。</div><div class="phrase-en">I need the police / a doctor.</div></div><button class="phrase-copy" data-copy="I need the police / a doctor.">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我丢了护照。</div><div class="phrase-en">I lost my passport.</div></div><button class="phrase-copy" data-copy="I lost my passport.">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我需要翻译。</div><div class="phrase-en">I need an interpreter.</div></div><button class="phrase-copy" data-copy="I need an interpreter.">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">请说慢一点，或写下来。</div><div class="phrase-en">Could you speak slowly or write it down?</div></div><button class="phrase-copy" data-copy="Could you speak slowly or write it down?">复制</button></div>
+      <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">可以在地图上给我看吗？</div><div class="phrase-en">Could you please show me on the map?</div></div><button class="phrase-copy" data-copy="Could you please show me on the map?">复制</button></div>
+    </div></section>
+    <div class="footer">💬 常用英语 · 点击“复制”后可粘贴到 Papago、短信或直接给对方看</div>
+  </div><!-- /pane-phrases -->
 
   <div class="shell pane" data-pane="sights">
     <div class="notice"><strong>📍 景点清单 + 地图</strong>所有可导航地点使用全页连续编号，地图标记与卡片完全一致。点击<b>复制</b>可复制韩文名+地址；“出发前复核”表示营业、演出或活动时间可能变化。</div>
@@ -703,12 +776,13 @@
     initMiniMap('love','map-love','list-love');
     initMiniMap('food','map-food','list-food');
     bindOverviewCardFocus();
-    // 统一绑定复制按钮
-    document.addEventListener('click', function(e){
-      var b = e.target.closest('[data-copy]');
-      if (b) copyText(b.getAttribute('data-copy'), b);
-    });
   }
+
+  // 地图地址与常用英语共用一套复制能力；不依赖地图是否已打开。
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]');
+    if (b) copyText(b.getAttribute('data-copy'), b);
+  });
 
   panes.forEach(function(pane){
     load(pane);
