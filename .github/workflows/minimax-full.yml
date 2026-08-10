@@ -1,0 +1,60 @@
+name: Generate 100 MiniMax English clips
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: minimax-full-english
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the travel guide
+        uses: actions/checkout@v5
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Run generator tests
+        run: node --test tests/minimax-samples.test.mjs tests/minimax-full.test.mjs
+
+      - name: Generate or resume 100 English clips
+        id: tts
+        continue-on-error: true
+        env:
+          MINIMAX_API_KEY: ${{ secrets.MINIMAX_API_KEY }}
+        run: node scripts/minimax-full.mjs
+
+      - name: Check published files for exposed secrets
+        if: always()
+        run: |
+          if grep -R -n -E 'sk-api-|MINIMAX_API_KEY' index.html audio/english/ 2>/dev/null; then
+            echo 'A secret-like value was found in a published file.'
+            exit 1
+          fi
+
+      - name: Save generated clips and the static player
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html audio/english 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo 'No generated changes to commit.'
+          else
+            git commit -m 'Add 100 MiniMax English audio clips'
+            git push
+          fi
+
+      - name: Fail after preserving partial progress
+        if: steps.tts.outcome != 'success'
+        run: |
+          echo 'Generation stopped early. Partial MP3 files were preserved; re-run this workflow to resume.'
+          exit 1
