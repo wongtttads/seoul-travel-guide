@@ -1,0 +1,50 @@
+name: Generate MiniMax audition clips
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: minimax-audition
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the travel guide
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run generator tests
+        run: node --test tests/minimax-samples.test.mjs
+
+      - name: Generate six audition clips
+        env:
+          MINIMAX_API_KEY: ${{ secrets.MINIMAX_API_KEY }}
+        run: node scripts/minimax-samples.mjs
+
+      - name: Check that no API key entered published files
+        run: |
+          if grep -R -n -E 'sk-api-|MINIMAX_API_KEY' index.html audio/; then
+            echo 'A secret-like value was found in a published file.'
+            exit 1
+          fi
+
+      - name: Commit the clips and audition panel
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html audio/minimax-samples
+          if git diff --cached --quiet; then
+            echo 'No generated changes to commit.'
+          else
+            git commit -m 'Add MiniMax voice audition clips'
+            git push
+          fi
