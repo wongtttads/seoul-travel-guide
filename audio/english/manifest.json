@@ -1,0 +1,808 @@
+{
+  "model": "speech-2.8-hd",
+  "voiceId": "English_Trustworthy_Man",
+  "speed": 0.8,
+  "phraseCount": 100,
+  "phrases": [
+    {
+      "number": 1,
+      "category": "机场与航班",
+      "zh": "值机柜台在哪里？",
+      "en": "Where is the check-in counter?",
+      "ko": "체크인 카운터가 어디예요?",
+      "relativePath": "audio/english/001.mp3"
+    },
+    {
+      "number": 2,
+      "category": "机场与航班",
+      "zh": "我想托运这个行李箱。",
+      "en": "I'd like to check this suitcase.",
+      "ko": "이 여행 가방을 부치고 싶어요.",
+      "relativePath": "audio/english/002.mp3"
+    },
+    {
+      "number": 3,
+      "category": "机场与航班",
+      "zh": "这个行李箱没有超重吧？",
+      "en": "Is this suitcase within the weight limit?",
+      "ko": "이 여행 가방은 무게 제한 이내인가요?",
+      "relativePath": "audio/english/003.mp3"
+    },
+    {
+      "number": 4,
+      "category": "机场与航班",
+      "zh": "我的托运行李额度是多少？",
+      "en": "What is my checked baggage allowance?",
+      "ko": "제 위탁 수하물 허용량이 얼마인가요?",
+      "relativePath": "audio/english/004.mp3"
+    },
+    {
+      "number": 5,
+      "category": "机场与航班",
+      "zh": "安检入口在哪里？",
+      "en": "Where is the security checkpoint?",
+      "ko": "보안 검색대가 어디예요?",
+      "relativePath": "audio/english/005.mp3"
+    },
+    {
+      "number": 6,
+      "category": "机场与航班",
+      "zh": "登机口在哪里？",
+      "en": "Where is the boarding gate?",
+      "ko": "탑승구가 어디예요?",
+      "relativePath": "audio/english/006.mp3"
+    },
+    {
+      "number": 7,
+      "category": "机场与航班",
+      "zh": "已经开始登机了吗？",
+      "en": "Has boarding started yet?",
+      "ko": "탑승이 시작됐나요?",
+      "relativePath": "audio/english/007.mp3"
+    },
+    {
+      "number": 8,
+      "category": "机场与航班",
+      "zh": "这趟航班延误了吗？",
+      "en": "Has this flight been delayed?",
+      "ko": "이 항공편이 지연됐나요?",
+      "relativePath": "audio/english/008.mp3"
+    },
+    {
+      "number": 9,
+      "category": "机场与航班",
+      "zh": "行李提取处在哪里？",
+      "en": "Where is baggage claim?",
+      "ko": "수하물 찾는 곳이 어디예요?",
+      "relativePath": "audio/english/009.mp3"
+    },
+    {
+      "number": 10,
+      "category": "机场与航班",
+      "zh": "我的行李还没有出来。",
+      "en": "My luggage hasn't arrived yet.",
+      "ko": "제 짐이 아직 나오지 않았어요.",
+      "relativePath": "audio/english/010.mp3"
+    },
+    {
+      "number": 11,
+      "category": "酒店入住与服务",
+      "zh": "我有预订，名字是……",
+      "en": "I have a reservation under the name ...",
+      "ko": "… 이름으로 예약했어요.",
+      "relativePath": "audio/english/011.mp3"
+    },
+    {
+      "number": 12,
+      "category": "酒店入住与服务",
+      "zh": "可以提前入住吗？",
+      "en": "Is early check-in possible?",
+      "ko": "얼리 체크인이 가능한가요?",
+      "relativePath": "audio/english/012.mp3"
+    },
+    {
+      "number": 13,
+      "category": "酒店入住与服务",
+      "zh": "入住前可以寄存行李吗？",
+      "en": "Can I leave my luggage here before check-in?",
+      "ko": "체크인 전에 짐을 맡길 수 있나요?",
+      "relativePath": "audio/english/013.mp3"
+    },
+    {
+      "number": 14,
+      "category": "酒店入住与服务",
+      "zh": "退房后可以寄存行李吗？",
+      "en": "Can I leave my luggage here after check-out?",
+      "ko": "체크아웃 후에 짐을 맡길 수 있나요?",
+      "relativePath": "audio/english/014.mp3"
+    },
+    {
+      "number": 15,
+      "category": "酒店入住与服务",
+      "zh": "退房时间是几点？",
+      "en": "What time is check-out?",
+      "ko": "체크아웃은 몇 시예요?",
+      "relativePath": "audio/english/015.mp3"
+    },
+    {
+      "number": 16,
+      "category": "酒店入住与服务",
+      "zh": "Wi-Fi 密码是什么？",
+      "en": "What is the Wi-Fi password?",
+      "ko": "와이파이 비밀번호가 뭐예요?",
+      "relativePath": "audio/english/016.mp3"
+    },
+    {
+      "number": 17,
+      "category": "酒店入住与服务",
+      "zh": "我的房卡不能使用。",
+      "en": "My room key isn't working.",
+      "ko": "객실 카드키가 작동하지 않아요.",
+      "relativePath": "audio/english/017.mp3"
+    },
+    {
+      "number": 18,
+      "category": "酒店入住与服务",
+      "zh": "可以给我们一间安静的房间吗？",
+      "en": "Could we have a quiet room, please?",
+      "ko": "조용한 객실로 부탁드려도 될까요?",
+      "relativePath": "audio/english/018.mp3"
+    },
+    {
+      "number": 19,
+      "category": "酒店入住与服务",
+      "zh": "可以再给我们两条毛巾吗？",
+      "en": "Could we have two more towels, please?",
+      "ko": "수건 두 장 더 주실 수 있나요?",
+      "relativePath": "audio/english/019.mp3"
+    },
+    {
+      "number": 20,
+      "category": "酒店入住与服务",
+      "zh": "可以帮我们叫出租车吗？",
+      "en": "Could you please call a taxi for us?",
+      "ko": "택시를 불러 주실 수 있나요?",
+      "relativePath": "audio/english/020.mp3"
+    },
+    {
+      "number": 21,
+      "category": "餐厅与咖啡馆",
+      "zh": "两位，谢谢。",
+      "en": "A table for two, please.",
+      "ko": "두 명이에요.",
+      "relativePath": "audio/english/021.mp3"
+    },
+    {
+      "number": 22,
+      "category": "餐厅与咖啡馆",
+      "zh": "有英文菜单或图片菜单吗？",
+      "en": "Do you have an English or picture menu?",
+      "ko": "영어나 사진 메뉴가 있나요?",
+      "relativePath": "audio/english/022.mp3"
+    },
+    {
+      "number": 23,
+      "category": "餐厅与咖啡馆",
+      "zh": "你推荐哪一道菜？",
+      "en": "What dish do you recommend?",
+      "ko": "어떤 메뉴를 추천하세요?",
+      "relativePath": "audio/english/023.mp3"
+    },
+    {
+      "number": 24,
+      "category": "餐厅与咖啡馆",
+      "zh": "这个是什么？",
+      "en": "What is this?",
+      "ko": "이게 뭐예요?",
+      "relativePath": "audio/english/024.mp3"
+    },
+    {
+      "number": 25,
+      "category": "餐厅与咖啡馆",
+      "zh": "不要太辣，谢谢。",
+      "en": "Not too spicy, please.",
+      "ko": "너무 맵지 않게 해 주세요.",
+      "relativePath": "audio/english/025.mp3"
+    },
+    {
+      "number": 26,
+      "category": "餐厅与咖啡馆",
+      "zh": "我们不吃牛肉。",
+      "en": "We don't eat beef.",
+      "ko": "저희는 소고기를 먹지 않아요.",
+      "relativePath": "audio/english/026.mp3"
+    },
+    {
+      "number": 27,
+      "category": "餐厅与咖啡馆",
+      "zh": "这个里面有花生吗？",
+      "en": "Does this contain peanuts?",
+      "ko": "여기에 땅콩이 들어가나요?",
+      "relativePath": "audio/english/027.mp3"
+    },
+    {
+      "number": 28,
+      "category": "餐厅与咖啡馆",
+      "zh": "请给我们两杯水。",
+      "en": "Two glasses of water, please.",
+      "ko": "물 두 잔 주세요.",
+      "relativePath": "audio/english/028.mp3"
+    },
+    {
+      "number": 29,
+      "category": "餐厅与咖啡馆",
+      "zh": "可以再给一个小盘子吗？",
+      "en": "Could we have another small plate?",
+      "ko": "앞접시 하나 더 주실 수 있나요?",
+      "relativePath": "audio/english/029.mp3"
+    },
+    {
+      "number": 30,
+      "category": "餐厅与咖啡馆",
+      "zh": "可以打包吗？",
+      "en": "Could you pack this to go?",
+      "ko": "포장해 주실 수 있나요?",
+      "relativePath": "audio/english/030.mp3"
+    },
+    {
+      "number": 31,
+      "category": "餐厅与咖啡馆",
+      "zh": "请给我们账单。",
+      "en": "Could we have the bill, please?",
+      "ko": "계산서 주세요.",
+      "relativePath": "audio/english/031.mp3"
+    },
+    {
+      "number": 32,
+      "category": "餐厅与咖啡馆",
+      "zh": "我们一起付款。",
+      "en": "We'll pay together.",
+      "ko": "한꺼번에 계산할게요.",
+      "relativePath": "audio/english/032.mp3"
+    },
+    {
+      "number": 33,
+      "category": "地铁、机场铁路与问路",
+      "zh": "机场铁路在哪里？",
+      "en": "Where is the Airport Railroad?",
+      "ko": "공항철도가 어디예요?",
+      "relativePath": "audio/english/033.mp3"
+    },
+    {
+      "number": 34,
+      "category": "地铁、机场铁路与问路",
+      "zh": "去弘大入口站怎么走？",
+      "en": "How do I get to Hongik University Station?",
+      "ko": "홍대입구역에 어떻게 가요?",
+      "relativePath": "audio/english/034.mp3"
+    },
+    {
+      "number": 35,
+      "category": "地铁、机场铁路与问路",
+      "zh": "这趟车去仁川机场吗？",
+      "en": "Does this train go to Incheon Airport?",
+      "ko": "이 열차가 인천공항에 가나요?",
+      "relativePath": "audio/english/035.mp3"
+    },
+    {
+      "number": 36,
+      "category": "地铁、机场铁路与问路",
+      "zh": "我要去 T1 / T2 航站楼。",
+      "en": "I need to go to Terminal 1 / Terminal 2.",
+      "ko": "제1터미널 / 제2터미널로 가야 해요.",
+      "relativePath": "audio/english/036.mp3"
+    },
+    {
+      "number": 37,
+      "category": "地铁、机场铁路与问路",
+      "zh": "我需要在哪一站换乘？",
+      "en": "Where should I transfer?",
+      "ko": "어느 역에서 갈아타야 하나요?",
+      "relativePath": "audio/english/037.mp3"
+    },
+    {
+      "number": 38,
+      "category": "地铁、机场铁路与问路",
+      "zh": "应该去哪个站台？",
+      "en": "Which platform should I use?",
+      "ko": "어느 승강장으로 가야 하나요?",
+      "relativePath": "audio/english/038.mp3"
+    },
+    {
+      "number": 39,
+      "category": "地铁、机场铁路与问路",
+      "zh": "末班车是几点？",
+      "en": "What time is the last train?",
+      "ko": "막차가 몇 시예요?",
+      "relativePath": "audio/english/039.mp3"
+    },
+    {
+      "number": 40,
+      "category": "地铁、机场铁路与问路",
+      "zh": "在哪里给 T-money 充值？",
+      "en": "Where can I top up my T-money card?",
+      "ko": "티머니 카드는 어디에서 충전할 수 있나요?",
+      "relativePath": "audio/english/040.mp3"
+    },
+    {
+      "number": 41,
+      "category": "地铁、机场铁路与问路",
+      "zh": "请送我们到这个地址。",
+      "en": "Please take us to this address.",
+      "ko": "이 주소로 가 주세요.",
+      "relativePath": "audio/english/041.mp3"
+    },
+    {
+      "number": 42,
+      "category": "地铁、机场铁路与问路",
+      "zh": "请在这里停车。",
+      "en": "Could you stop here, please?",
+      "ko": "여기에서 세워 주세요.",
+      "relativePath": "audio/english/042.mp3"
+    },
+    {
+      "number": 43,
+      "category": "购物、退税与付款",
+      "zh": "我只是看看，谢谢。",
+      "en": "I'm just looking, thank you.",
+      "ko": "그냥 둘러보는 중이에요. 감사합니다.",
+      "relativePath": "audio/english/043.mp3"
+    },
+    {
+      "number": 44,
+      "category": "购物、退税与付款",
+      "zh": "可以试穿吗？",
+      "en": "May I try this on?",
+      "ko": "입어 봐도 될까요?",
+      "relativePath": "audio/english/044.mp3"
+    },
+    {
+      "number": 45,
+      "category": "购物、退税与付款",
+      "zh": "有更大/更小的尺码吗？",
+      "en": "Do you have a larger / smaller size?",
+      "ko": "더 큰 / 작은 사이즈가 있나요?",
+      "relativePath": "audio/english/045.mp3"
+    },
+    {
+      "number": 46,
+      "category": "购物、退税与付款",
+      "zh": "有其他颜色吗？",
+      "en": "Do you have this in another color?",
+      "ko": "다른 색상도 있나요?",
+      "relativePath": "audio/english/046.mp3"
+    },
+    {
+      "number": 47,
+      "category": "购物、退税与付款",
+      "zh": "这个多少钱？",
+      "en": "How much is this?",
+      "ko": "이거 얼마예요?",
+      "relativePath": "audio/english/047.mp3"
+    },
+    {
+      "number": 48,
+      "category": "购物、退税与付款",
+      "zh": "可以退税吗？",
+      "en": "Can I get a tax refund?",
+      "ko": "택스 리펀드가 가능한가요?",
+      "relativePath": "audio/english/048.mp3"
+    },
+    {
+      "number": 49,
+      "category": "购物、退税与付款",
+      "zh": "退税需要出示护照吗？",
+      "en": "Do I need my passport for the tax refund?",
+      "ko": "택스 리펀드에 여권이 필요한가요?",
+      "relativePath": "audio/english/049.mp3"
+    },
+    {
+      "number": 50,
+      "category": "购物、退税与付款",
+      "zh": "可以刷卡吗？",
+      "en": "Can I pay by card?",
+      "ko": "카드로 결제할 수 있나요?",
+      "relativePath": "audio/english/050.mp3"
+    },
+    {
+      "number": 51,
+      "category": "购物、退税与付款",
+      "zh": "请用韩元结算。",
+      "en": "Please charge me in Korean won.",
+      "ko": "원화로 결제해 주세요.",
+      "relativePath": "audio/english/051.mp3"
+    },
+    {
+      "number": 52,
+      "category": "购物、退税与付款",
+      "zh": "请给我收据和袋子。",
+      "en": "Could I have the receipt and a bag, please?",
+      "ko": "영수증과 봉투 주세요.",
+      "relativePath": "audio/english/052.mp3"
+    },
+    {
+      "number": 53,
+      "category": "紧急、医疗与万能句",
+      "zh": "请帮帮我。",
+      "en": "Please help me.",
+      "ko": "도와주세요.",
+      "relativePath": "audio/english/053.mp3"
+    },
+    {
+      "number": 54,
+      "category": "紧急、医疗与万能句",
+      "zh": "我需要警察。",
+      "en": "I need the police.",
+      "ko": "경찰이 필요해요.",
+      "relativePath": "audio/english/054.mp3"
+    },
+    {
+      "number": 55,
+      "category": "紧急、医疗与万能句",
+      "zh": "我需要医生。",
+      "en": "I need a doctor.",
+      "ko": "의사가 필요해요.",
+      "relativePath": "audio/english/055.mp3"
+    },
+    {
+      "number": 56,
+      "category": "紧急、医疗与万能句",
+      "zh": "请拨打 112 / 119。",
+      "en": "Please call 112 / 119.",
+      "ko": "112 / 119에 전화해 주세요.",
+      "relativePath": "audio/english/056.mp3"
+    },
+    {
+      "number": 57,
+      "category": "紧急、医疗与万能句",
+      "zh": "我丢了护照。",
+      "en": "I lost my passport.",
+      "ko": "여권을 잃어버렸어요.",
+      "relativePath": "audio/english/057.mp3"
+    },
+    {
+      "number": 58,
+      "category": "紧急、医疗与万能句",
+      "zh": "我丢了手机。",
+      "en": "I lost my phone.",
+      "ko": "휴대전화를 잃어버렸어요.",
+      "relativePath": "audio/english/058.mp3"
+    },
+    {
+      "number": 59,
+      "category": "紧急、医疗与万能句",
+      "zh": "我需要翻译。",
+      "en": "I need an interpreter.",
+      "ko": "통역이 필요해요.",
+      "relativePath": "audio/english/059.mp3"
+    },
+    {
+      "number": 60,
+      "category": "紧急、医疗与万能句",
+      "zh": "请说慢一点。",
+      "en": "Could you speak more slowly, please?",
+      "ko": "천천히 말씀해 주세요.",
+      "relativePath": "audio/english/060.mp3"
+    },
+    {
+      "number": 61,
+      "category": "紧急、医疗与万能句",
+      "zh": "请写下来或在地图上给我看。",
+      "en": "Could you write it down or show me on the map?",
+      "ko": "적어 주시거나 지도에서 보여 주세요.",
+      "relativePath": "audio/english/061.mp3"
+    },
+    {
+      "number": 62,
+      "category": "紧急、医疗与万能句",
+      "zh": "最近的药店在哪里？",
+      "en": "Where is the nearest pharmacy?",
+      "ko": "가장 가까운 약국이 어디예요?",
+      "relativePath": "audio/english/062.mp3"
+    },
+    {
+      "number": 63,
+      "category": "实弹射击场：预约与价格",
+      "zh": "我预约了实弹射击。",
+      "en": "I have a reservation for live-fire shooting.",
+      "ko": "실탄 사격을 예약했어요.",
+      "relativePath": "audio/english/063.mp3"
+    },
+    {
+      "number": 64,
+      "category": "实弹射击场：预约与价格",
+      "zh": "没有预约也可以体验吗？",
+      "en": "Can we shoot without a reservation?",
+      "ko": "예약 없이 이용할 수 있나요?",
+      "relativePath": "audio/english/064.mp3"
+    },
+    {
+      "number": 65,
+      "category": "实弹射击场：预约与价格",
+      "zh": "外国游客可以在这里射击吗？",
+      "en": "Can foreign visitors use this shooting range?",
+      "ko": "외국인도 이 사격장을 이용할 수 있나요?",
+      "relativePath": "audio/english/065.mp3"
+    },
+    {
+      "number": 66,
+      "category": "实弹射击场：预约与价格",
+      "zh": "需要护照原件吗？",
+      "en": "Do I need my original passport?",
+      "ko": "여권 원본이 필요한가요?",
+      "relativePath": "audio/english/066.mp3"
+    },
+    {
+      "number": 67,
+      "category": "实弹射击场：预约与价格",
+      "zh": "这是我第一次实弹射击。",
+      "en": "This is my first time shooting a real firearm.",
+      "ko": "실탄 사격이 처음이에요.",
+      "relativePath": "audio/english/067.mp3"
+    },
+    {
+      "number": 68,
+      "category": "实弹射击场：预约与价格",
+      "zh": "适合初学者的是哪一个套餐？",
+      "en": "Which package do you recommend for a beginner?",
+      "ko": "초보자에게 어떤 코스를 추천하세요?",
+      "relativePath": "audio/english/068.mp3"
+    },
+    {
+      "number": 69,
+      "category": "实弹射击场：预约与价格",
+      "zh": "弹药包含在价格里吗？",
+      "en": "Is ammunition included in the price?",
+      "ko": "탄약이 가격에 포함되어 있나요?",
+      "relativePath": "audio/english/069.mp3"
+    },
+    {
+      "number": 70,
+      "category": "实弹射击场：预约与价格",
+      "zh": "这个套餐有多少发子弹？",
+      "en": "How many rounds are included in this package?",
+      "ko": "이 코스는 몇 발이 포함되어 있나요?",
+      "relativePath": "audio/english/070.mp3"
+    },
+    {
+      "number": 71,
+      "category": "实弹射击场：预约与价格",
+      "zh": "两个人总共多少钱？",
+      "en": "How much is it for two people in total?",
+      "ko": "두 명의 총 비용이 얼마인가요?",
+      "relativePath": "audio/english/071.mp3"
+    },
+    {
+      "number": 72,
+      "category": "实弹射击场：预约与价格",
+      "zh": "可以刷卡吗？",
+      "en": "Can I pay by card?",
+      "ko": "카드로 결제할 수 있나요?",
+      "relativePath": "audio/english/072.mp3"
+    },
+    {
+      "number": 73,
+      "category": "实弹射击场：预约与价格",
+      "zh": "需要等多久？",
+      "en": "How long is the wait?",
+      "ko": "대기 시간이 얼마나 되나요?",
+      "relativePath": "audio/english/073.mp3"
+    },
+    {
+      "number": 74,
+      "category": "实弹射击场：预约与价格",
+      "zh": "可以拍照或录像吗？",
+      "en": "May we take photos or videos?",
+      "ko": "사진이나 동영상을 찍어도 되나요?",
+      "relativePath": "audio/english/074.mp3"
+    },
+    {
+      "number": 75,
+      "category": "实弹射击场：安全与操作",
+      "zh": "请先给我做安全讲解。",
+      "en": "Please give me a safety briefing first.",
+      "ko": "먼저 안전 교육을 해 주세요.",
+      "relativePath": "audio/english/075.mp3"
+    },
+    {
+      "number": 76,
+      "category": "实弹射击场：安全与操作",
+      "zh": "请慢慢说明安全操作方法。",
+      "en": "Please explain how to operate it safely and slowly.",
+      "ko": "안전하게 사용하는 방법을 천천히 설명해 주세요.",
+      "relativePath": "audio/english/076.mp3"
+    },
+    {
+      "number": 77,
+      "category": "实弹射击场：安全与操作",
+      "zh": "请先用未装弹的枪示范。",
+      "en": "Please demonstrate with the firearm unloaded first.",
+      "ko": "장전하지 않은 상태에서 먼저 시범을 보여 주세요.",
+      "relativePath": "audio/english/077.mp3"
+    },
+    {
+      "number": 78,
+      "category": "实弹射击场：安全与操作",
+      "zh": "我需要护目镜和听力保护。",
+      "en": "I need eye and hearing protection.",
+      "ko": "보안경과 귀마개가 필요해요.",
+      "relativePath": "audio/english/078.mp3"
+    },
+    {
+      "number": 79,
+      "category": "实弹射击场：安全与操作",
+      "zh": "我应该站在哪里？",
+      "en": "Where should I stand?",
+      "ko": "어디에 서야 하나요?",
+      "relativePath": "audio/english/079.mp3"
+    },
+    {
+      "number": 80,
+      "category": "实弹射击场：安全与操作",
+      "zh": "请帮我纠正站姿。",
+      "en": "Please correct my stance.",
+      "ko": "자세를 교정해 주세요.",
+      "relativePath": "audio/english/080.mp3"
+    },
+    {
+      "number": 81,
+      "category": "实弹射击场：安全与操作",
+      "zh": "我的握持方法正确吗？",
+      "en": "Am I holding it correctly?",
+      "ko": "그립을 올바르게 잡고 있나요?",
+      "relativePath": "audio/english/081.mp3"
+    },
+    {
+      "number": 82,
+      "category": "实弹射击场：安全与操作",
+      "zh": "准备射击前，我会把手指放在扳机外。",
+      "en": "I'll keep my finger off the trigger until I'm ready to shoot.",
+      "ko": "발사할 준비가 될 때까지 방아쇠에서 손가락을 떼겠습니다.",
+      "relativePath": "audio/english/082.mp3"
+    },
+    {
+      "number": 83,
+      "category": "实弹射击场：安全与操作",
+      "zh": "我会一直让枪口朝向靶子。",
+      "en": "I'll keep the muzzle pointed downrange.",
+      "ko": "항상 총구를 표적 방향으로 두겠습니다.",
+      "relativePath": "audio/english/083.mp3"
+    },
+    {
+      "number": 84,
+      "category": "实弹射击场：安全与操作",
+      "zh": "什么时候可以开始射击？",
+      "en": "When may I start shooting?",
+      "ko": "언제 사격을 시작해도 되나요?",
+      "relativePath": "audio/english/084.mp3"
+    },
+    {
+      "number": 85,
+      "category": "实弹射击场：安全与操作",
+      "zh": "现在需要立即停止射击吗？",
+      "en": "Should I stop firing immediately?",
+      "ko": "지금 즉시 사격을 중지해야 하나요?",
+      "relativePath": "audio/english/085.mp3"
+    },
+    {
+      "number": 86,
+      "category": "实弹射击场：安全与操作",
+      "zh": "发生故障时，我应该放下枪并叫教练吗？",
+      "en": "If it malfunctions, should I set it down and call the instructor?",
+      "ko": "작동 이상이 생기면 총을 내려놓고 교관을 부르면 되나요?",
+      "relativePath": "audio/english/086.mp3"
+    },
+    {
+      "number": 87,
+      "category": "枪械术语与体验选择",
+      "zh": "这把枪的型号和口径是什么？",
+      "en": "What model and caliber is this firearm?",
+      "ko": "이 총의 모델과 구경은 무엇인가요?",
+      "relativePath": "audio/english/087.mp3"
+    },
+    {
+      "number": 88,
+      "category": "枪械术语与体验选择",
+      "zh": "这是半自动手枪吗？",
+      "en": "Is this a semi-automatic pistol?",
+      "ko": "이것은 반자동 권총인가요?",
+      "relativePath": "audio/english/088.mp3"
+    },
+    {
+      "number": 89,
+      "category": "枪械术语与体验选择",
+      "zh": "手枪和左轮手枪有什么区别？",
+      "en": "What is the difference between a pistol and a revolver?",
+      "ko": "권총과 리볼버의 차이가 무엇인가요?",
+      "relativePath": "audio/english/089.mp3"
+    },
+    {
+      "number": 90,
+      "category": "枪械术语与体验选择",
+      "zh": "哪一种后坐力更小？",
+      "en": "Which one has less recoil?",
+      "ko": "어느 것이 반동이 더 적나요?",
+      "relativePath": "audio/english/090.mp3"
+    },
+    {
+      "number": 91,
+      "category": "枪械术语与体验选择",
+      "zh": "请指出套筒、枪管、弹匣和扳机。",
+      "en": "Please point out the slide, barrel, magazine, and trigger.",
+      "ko": "슬라이드, 총열, 탄창, 방아쇠를 가리켜 주세요.",
+      "relativePath": "audio/english/091.mp3"
+    },
+    {
+      "number": 92,
+      "category": "枪械术语与体验选择",
+      "zh": "保险和弹匣释放钮在哪里？",
+      "en": "Where are the safety and magazine release?",
+      "ko": "안전장치와 탄창 멈치는 어디에 있나요?",
+      "relativePath": "audio/english/092.mp3"
+    },
+    {
+      "number": 93,
+      "category": "枪械术语与体验选择",
+      "zh": "应该怎样使用准星瞄准？",
+      "en": "How should I align the sights?",
+      "ko": "조준기는 어떻게 정렬해야 하나요?",
+      "relativePath": "audio/english/093.mp3"
+    },
+    {
+      "number": 94,
+      "category": "枪械术语与体验选择",
+      "zh": "可以确认枪已经退弹并处于安全状态吗？",
+      "en": "Could you confirm that the firearm is unloaded and safe?",
+      "ko": "총이 비어 있고 안전한 상태인지 확인해 주시겠어요?",
+      "relativePath": "audio/english/094.mp3"
+    },
+    {
+      "number": 95,
+      "category": "靶场商店与合法纪念品",
+      "zh": "我只是看看，谢谢。",
+      "en": "I'm just looking, thank you.",
+      "ko": "그냥 둘러보는 중이에요. 감사합니다.",
+      "relativePath": "audio/english/095.mp3"
+    },
+    {
+      "number": 96,
+      "category": "靶场商店与合法纪念品",
+      "zh": "你们出售射击护目镜吗？",
+      "en": "Do you sell shooting glasses?",
+      "ko": "사격용 보안경을 판매하나요?",
+      "relativePath": "audio/english/096.mp3"
+    },
+    {
+      "number": 97,
+      "category": "靶场商店与合法纪念品",
+      "zh": "你们出售听力保护用品吗？",
+      "en": "Do you sell hearing protection?",
+      "ko": "청력 보호 장비를 판매하나요?",
+      "relativePath": "audio/english/097.mp3"
+    },
+    {
+      "number": 98,
+      "category": "靶场商店与合法纪念品",
+      "zh": "有靶场纪念品、徽章或钥匙扣吗？",
+      "en": "Do you have range souvenirs, patches, or key chains?",
+      "ko": "사격장 기념품, 패치나 열쇠고리가 있나요?",
+      "relativePath": "audio/english/098.mp3"
+    },
+    {
+      "number": 99,
+      "category": "靶场商店与合法纪念品",
+      "zh": "这是纪念品，不是枪械部件，对吗？",
+      "en": "This is a souvenir, not a firearm part, correct?",
+      "ko": "이것은 총기 부품이 아니라 기념품이 맞나요?",
+      "relativePath": "audio/english/099.mp3"
+    },
+    {
+      "number": 100,
+      "category": "靶场商店与合法纪念品",
+      "zh": "这个物品可以合法带出韩国吗？",
+      "en": "Is this item legal to take out of Korea?",
+      "ko": "이 물품을 합법적으로 한국 밖으로 가져갈 수 있나요?",
+      "relativePath": "audio/english/100.mp3"
+    }
+  ]
+}

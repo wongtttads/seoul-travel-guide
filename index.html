@@ -169,13 +169,11 @@
   .phrase-speak{background:var(--navy);border-color:var(--navy);color:#fff}
   .phrase-copy.now,.phrase-copy:active,.phrase-speak.now,.phrase-speak:active{background:var(--green);border-color:var(--green);color:#fff}
   .phrase-speak.unavailable{background:var(--muted);border-color:var(--muted)}
-<!-- MINIMAX_SAMPLE_STYLE_START -->
-  .minimax-samples{margin:14px 0 22px;background:linear-gradient(145deg,#10253f,#183657);border-radius:18px;padding:14px;color:#fff;box-shadow:0 8px 24px rgba(16,37,63,.18)}
-  .minimax-samples-head span{font-size:10px;font-weight:900;letter-spacing:.05em;color:#7fc1ff}.minimax-samples-head h2{font-size:18px;margin:4px 0}.minimax-samples-head p{font-size:12px;color:#cfe0f2;margin:0 0 12px}
-  .minimax-voice-grid{display:grid;gap:10px}.minimax-voice{background:#fff;color:#1c2a3c;border-radius:14px;padding:12px}.minimax-voice h3{font-size:15px;margin:0}.minimax-voice h3 small{display:block;font-size:9px;color:#718096;margin-top:2px}.minimax-voice>p{font-size:11px;color:#718096;margin:5px 0 8px}
-  .minimax-sample-row{display:flex;gap:8px;align-items:center;border-top:1px solid #e6e1d8;padding:9px 0}.minimax-sample-row>div{flex:1;min-width:0}.minimax-sample-row b{display:block;font-size:12px}.minimax-sample-row span{display:block;font-size:11px;color:#526273;margin-top:2px}.minimax-sample-row button{flex:0 0 66px;border:0;border-radius:10px;padding:8px 5px;background:#1475e1;color:#fff;font-size:11px;font-weight:900}.minimax-sample-row button.now{background:#287a5b}
-  @media(min-width:700px){.minimax-voice-grid{grid-template-columns:1fr 1fr}}
-  <!-- MINIMAX_SAMPLE_STYLE_END -->
+<!-- MINIMAX_FULL_AUDIO_STYLE_START -->
+  .phrase-audio-status{display:flex;gap:10px;align-items:center;margin:12px 0 18px;padding:12px 14px;border:1px solid #c6e5d2;border-radius:14px;background:var(--green-soft);color:#285b46}
+  .phrase-audio-status .audio-icon{flex:0 0 34px;width:34px;height:34px;border-radius:11px;background:var(--green);color:#fff;display:grid;place-items:center;font-size:17px}
+  .phrase-audio-status b{display:block;font-size:13px}.phrase-audio-status span{display:block;font-size:10px;color:#52705f;margin-top:2px;word-break:break-word}
+  <!-- MINIMAX_FULL_AUDIO_STYLE_END -->
 </style>
 </head>
 <body>
@@ -327,74 +325,13 @@
   <div class="shell pane" data-pane="phrases">
     <div class="notice"><strong>💬 出国常用英语 · 100句</strong>每条包含中文、英语和韩语。点“复制”可给工作人员看；点“🔊 0.8×”播放慢速英语。韩语只作现场展示，当前不播放韩语。</div>
     <p class="phrase-intro">中英韩对照 · 英语慢速播放 · 离线文字仍可查看 · 射击内容仅用于合法靶场和安全沟通</p>
-<!-- MINIMAX_SAMPLE_PANEL_START -->
-  <section class="minimax-samples" aria-labelledby="minimax-samples-title">
-    <div class="minimax-samples-head">
-      <span>MiniMax · speech-2.8-hd · 0.8×</span>
-      <h2 id="minimax-samples-title">选择英语音色</h2>
-      <p>先试听女声和男声各3句，选定后再生成完整100句。</p>
-    </div>
-    <div class="minimax-voice-grid">
-      <section class="minimax-voice" data-voice-id="English_Graceful_Lady">
-        <h3>自然女声 <small>English_Graceful_Lady</small></h3>
-        <p>清晰、自然，适合学习旅行英语</p>
-        <div class="minimax-sample-row">
-          <div><b>机场铁路在哪里？</b><span>Where is the Airport Railroad?</span></div>
-          <button type="button" data-minimax-sample="audio/minimax-samples/graceful-lady-01.mp3">▶ 试听</button>
-        </div>
-        <div class="minimax-sample-row">
-          <div><b>请说慢一点。</b><span>Could you speak more slowly, please?</span></div>
-          <button type="button" data-minimax-sample="audio/minimax-samples/graceful-lady-02.mp3">▶ 试听</button>
-        </div>
-        <div class="minimax-sample-row">
-          <div><b>请先给我做安全讲解。</b><span>Please give me a safety briefing first.</span></div>
-          <button type="button" data-minimax-sample="audio/minimax-samples/graceful-lady-03.mp3">▶ 试听</button>
-        </div>
-      </section>
-      <section class="minimax-voice" data-voice-id="English_Trustworthy_Man">
-        <h3>稳重男声 <small>English_Trustworthy_Man</small></h3>
-        <p>沉稳、清楚，长句辨识度较好</p>
-        <div class="minimax-sample-row">
-          <div><b>机场铁路在哪里？</b><span>Where is the Airport Railroad?</span></div>
-          <button type="button" data-minimax-sample="audio/minimax-samples/trustworthy-man-01.mp3">▶ 试听</button>
-        </div>
-        <div class="minimax-sample-row">
-          <div><b>请说慢一点。</b><span>Could you speak more slowly, please?</span></div>
-          <button type="button" data-minimax-sample="audio/minimax-samples/trustworthy-man-02.mp3">▶ 试听</button>
-        </div>
-        <div class="minimax-sample-row">
-          <div><b>请先给我做安全讲解。</b><span>Please give me a safety briefing first.</span></div>
-          <button type="button" data-minimax-sample="audio/minimax-samples/trustworthy-man-03.mp3">▶ 试听</button>
-        </div>
-      </section>
-    </div>
-  </section>
-  <script>
-  (function(){
-    var currentAudio = null;
-    var currentButton = null;
-    function resetButton(){
-      if(currentButton){ currentButton.classList.remove('now'); currentButton.textContent='▶ 试听'; }
-      currentButton = null;
-    }
-    document.addEventListener('click', function(event){
-      var button = event.target.closest('[data-minimax-sample]');
-      if(!button) return;
-      if(currentAudio){ currentAudio.pause(); currentAudio.currentTime = 0; }
-      resetButton();
-      currentButton = button;
-      currentAudio = new Audio(button.getAttribute('data-minimax-sample'));
-      button.classList.add('now');
-      button.textContent = '播放中…';
-      currentAudio.onended = resetButton;
-      currentAudio.onerror = function(){ button.textContent='加载失败'; setTimeout(resetButton, 1600); };
-      currentAudio.play().catch(function(){ button.textContent='点击重试'; setTimeout(resetButton, 1600); });
-    });
-  })();
-  </script>
-  <!-- MINIMAX_SAMPLE_PANEL_END -->
-
-    <div id="phrase-groups">
+<!-- MINIMAX_FULL_AUDIO_STATUS_START -->
+  <div class="phrase-audio-status">
+    <div class="audio-icon">🔊</div>
+    <div><b>MiniMax 稳重男声 · 100句已生成</b><span>English_Trustworthy_Man · speech-2.8-hd · 0.8倍速 · 点击每句右侧“播放”</span></div>
+  </div>
+  <!-- MINIMAX_FULL_AUDIO_STATUS_END -->
+<div id="phrase-groups">
     <section class="phrase-category"><h2 class="phrase-title">✈️ 机场与航班 <span>Airport</span></h2><div class="phrase-card">
       <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">值机柜台在哪里？</div><div class="phrase-en">Where is the check-in counter?</div></div><button class="phrase-copy" data-copy="Where is the check-in counter?">复制</button></div>
       <div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">我想托运这个行李箱。</div><div class="phrase-en">I'd like to check this suitcase.</div></div><button class="phrase-copy" data-copy="I'd like to check this suitcase.">复制</button></div>
@@ -683,12 +620,15 @@
   function renderPhrasebook(){
     var root = document.getElementById('phrase-groups');
     if(!root) return;
+    var phraseAudioNumber = 0;
     root.innerHTML = PHRASE_GROUPS.map(function(group){
       return '<section class="phrase-category"><h2 class="phrase-title">'+esc(group.icon)+' '+esc(group.title)+' <span>'+esc(group.sub)+'</span></h2><div class="phrase-card">'
         + group.items.map(function(item){
+          phraseAudioNumber += 1;
+          var audioPath = 'audio/english/'+String(phraseAudioNumber).padStart(3,'0')+'.mp3';
           return '<div class="phrase-row"><div class="phrase-text"><div class="phrase-zh">'+esc(item[0])+'</div><div class="phrase-en">'+esc(item[1])+'</div><div class="phrase-ko" lang="ko">'+esc(item[2])+'</div></div>'
             +'<div class="phrase-actions"><button type="button" class="phrase-copy" data-copy="'+esc(item[1])+'" aria-label="复制英文：'+esc(item[0])+'">复制</button>'
-            +'<button type="button" class="phrase-speak" data-speak="'+esc(item[1])+'" aria-label="慢速播放英文：'+esc(item[0])+'">🔊 0.8×</button></div></div>';
+            +'<button type="button" class="phrase-speak" data-phrase-audio="'+audioPath+'" aria-label="播放英文：'+esc(item[0])+'">🔊 播放</button></div></div>';
         }).join('')+'</div></section>';
     }).join('');
   }
@@ -981,40 +921,25 @@
     document.body.removeChild(ta);
   }
 
-  function chooseEnglishVoice(synth){
-    var voices = synth.getVoices ? synth.getVoices() : [];
-    var preferred = ['Samantha','Ava','Allison','Susan','Alex'];
-    for(var i=0;i<preferred.length;i++){
-      var exact = voices.filter(function(v){return v.lang === 'en-US' && v.name.indexOf(preferred[i]) !== -1;})[0];
-      if(exact) return exact;
-    }
-    return voices.filter(function(v){return v.lang === 'en-US';})[0]
-      || voices.filter(function(v){return String(v.lang).indexOf('en') === 0;})[0]
-      || null;
+  // MINIMAX_FULL_PLAYER_START
+  var phraseAudioPlayer = null;
+  var phraseAudioButton = null;
+  function resetPhraseAudioButton(){
+    if(phraseAudioButton){ phraseAudioButton.classList.remove('now'); phraseAudioButton.textContent='🔊 播放'; }
+    phraseAudioButton = null;
   }
-
-  function speakEnglish(txt, btn){
-    var synth = window.speechSynthesis;
-    if(!synth || typeof window.SpeechSynthesisUtterance === 'undefined'){
-      btn.classList.add('unavailable');
-      btn.textContent = '不可用';
-      return;
-    }
-    synth.cancel();
-    document.querySelectorAll('.phrase-speak.now').forEach(function(b){b.classList.remove('now');b.textContent='🔊 0.8×';});
-    var utterance = new window.SpeechSynthesisUtterance(txt);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.8;
-    utterance.pitch = 1;
-    utterance.volume = 1;
-    var voice = chooseEnglishVoice(synth);
-    if(voice) utterance.voice = voice;
-    function reset(){btn.classList.remove('now');btn.textContent='🔊 0.8×';}
-    utterance.onstart = function(){btn.classList.add('now');btn.textContent='播放中';};
-    utterance.onend = reset;
-    utterance.onerror = reset;
-    synth.speak(utterance);
+  function playPhraseAudio(src, btn){
+    if(phraseAudioPlayer){ phraseAudioPlayer.pause(); phraseAudioPlayer.currentTime=0; }
+    resetPhraseAudioButton();
+    phraseAudioButton = btn;
+    phraseAudioPlayer = new Audio(src);
+    btn.classList.add('now');
+    btn.textContent = '播放中…';
+    phraseAudioPlayer.onended = resetPhraseAudioButton;
+    phraseAudioPlayer.onerror = function(){ btn.textContent='加载失败'; setTimeout(resetPhraseAudioButton,1600); };
+    phraseAudioPlayer.play().catch(function(){ btn.textContent='点击重试'; setTimeout(resetPhraseAudioButton,1600); });
   }
+  // MINIMAX_FULL_PLAYER_END
 
   var mapsLaunched = false;
   function launchMaps(){
@@ -1033,8 +958,8 @@
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-copy]');
     if (b) copyText(b.getAttribute('data-copy'), b);
-    var s = e.target.closest('[data-speak]');
-    if (s) speakEnglish(s.getAttribute('data-speak'), s);
+    var s = e.target.closest('[data-phrase-audio]');
+    if (s) playPhraseAudio(s.getAttribute('data-phrase-audio'), s);
   });
 
   renderPhrasebook();
